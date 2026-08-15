@@ -1,0 +1,54 @@
+{{- /* 移动端专用站点导航：注入到 shell 左抽屉顶部（drawer 由右侧菜单按钮打开）。
+      桌面端用 .d-md-none 隐藏，避免与顶部导航栏重复。这样手机上「一个右侧菜单」
+      即可同时看到 站点导航（菜单）与本文章结构（目录，由 docs-shell.js 注入到
+      同抽屉的 aside slot）。覆盖 Oink 主题同名 partial。 */ -}}
+<nav class="oink-mobile-sitenav d-md-none" aria-label="{{ T "ui_main_nav" }}">
+  <div class="oink-mobile-sitenav__title">{{ T "ui_main_nav" }}</div>
+  <ul class="oink-mobile-sitenav__list">
+    {{- range .Site.Menus.main -}}
+      {{- if ne .Identifier "github" -}}
+        {{- $href := .URL | relLangURL -}}
+        {{- with .Page }}{{ $href = .RelPermalink }}{{ end -}}
+        <li>
+          <a class="oink-mobile-sitenav__link{{ if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{ end }}"
+             href="{{ $href }}">{{ .Name }}</a>
+          {{- if .HasChildren }}<ul class="oink-mobile-sitenav__sub">
+            {{- range .Children -}}
+              {{- $chref := .URL | relLangURL -}}
+              {{- with .Page }}{{ $chref = .RelPermalink }}{{ end -}}
+              <li><a class="oink-mobile-sitenav__link" href="{{ $chref }}">{{ .Name }}</a></li>
+            {{- end -}}
+          </ul>{{ end -}}
+        </li>
+      {{- end -}}
+    {{- end }}
+  </ul>
+</nav>
+
+{{- /* 以下为 Oink 主题原 sidebar.html 逻辑（渲染本专栏 / 本文档 的文章树）。 */ -}}
+{{- $sidebarCacheLimit := .Site.Params.ui.sidebar_cache_limit | default 2000 -}}
+{{- $cacheSidebar := ge (len .Site.Pages) $sidebarCacheLimit -}}
+{{- $sidebarRoot := partial "shell/sidebar-root.html" . -}}
+{{- $iconPolicy := partial "shell/sidebar-icon-policy.html" . -}}
+
+{{- $args := dict
+  "context" .
+  "cacheSidebar" $cacheSidebar
+  "sidebarRoot" $sidebarRoot
+  "sidebarRootID" $sidebarRoot.RelPermalink
+  "iconPolicy" $iconPolicy
+-}}
+{{- $docsNav := index hugo.Data "docs_nav" | default dict -}}
+{{- $tree := "shell/sidebar-tree.html" -}}
+{{- if and
+      (in (slice "docs" "book") .Type)
+      (ne $sidebarRoot .Site.Home)
+      (isset $docsNav "sections")
+  -}}
+  {{- $tree = "shell/docs-sidebar-tree.html" -}}
+{{- end -}}
+{{- if $cacheSidebar -}}
+  {{- partialCached $tree $args $sidebarRoot.RelPermalink -}}
+{{- else -}}
+  {{- partial $tree $args -}}
+{{- end -}}
