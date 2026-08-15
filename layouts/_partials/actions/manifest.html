@@ -1,0 +1,14 @@
+{{- /* Override: keep only actions that are actually available in the command
+       palette. This removes the greyed-out GitHub/edit/history/create/issue
+       entries when github_repo is not configured, and also drops disabled
+       assistant links (ChatGPT/Claude). */ -}}
+{{- $context := partial "actions/context.html" . -}}
+{{- $availableActions := where $context.actions "available" true -}}
+{{- return (dict
+  "version" 1
+  "language" .Site.Language.Lang
+  "actions" $availableActions
+  "commands" (partial "actions/site-commands.html" .)
+  "quickLinks" (partial "actions/quick-links.html" .)
+  "rootOrder" (partial "actions/root-order.html" .)
+) -}}

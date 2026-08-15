@@ -17,6 +17,9 @@ languages:
     title: 追风笔记
     params:
       description: 王鹏的个人技术站点：架构、银行业务、数据专栏与博客。
+      # 中文日期格式：最后修改与博客列表统一显示为「2026年8月15日」
+      time_format_default: "2006年1月2日"
+      time_format_blog: "2006年1月2日"
     menus:
       main:
         - { name: 首页, pageRef: /, weight: 10 }
@@ -35,6 +38,24 @@ languages:
     title: Zhuifeng Notes
     params:
       description: Wang Peng's personal site — architecture, banking, and data columns, plus a blog.
+      ui:
+        page_context_menu:
+          links:
+            - name: Share on Weibo
+              icon: fa-brands fa-weibo
+              url: "https://service.weibo.com/share/share.php?url={url}&title={title}"
+              target: _blank
+            - name: Share on WeChat
+              icon: fa-brands fa-weixin
+              url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={url}"
+              target: _blank
+            - name: Page QR Code
+              icon: fa-solid fa-qrcode
+              url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={url}"
+              target: _blank
+            - name: Print this page
+              icon: fa-solid fa-print
+              action: print
     menus:
       main:
         - { name: Home, pageRef: /, weight: 10 }
@@ -55,7 +76,10 @@ markup:
 
 params:
   offlineSearch: true
-  # 留空以移除主题默认的 "Powered by Oink" 页脚（站点只保留用户相关内容）。
+  # 只索引标题/描述/摘要，减小搜索包体积（内容页仍可通过摘要命中）
+  offlineSearchIndex: summary
+  offlineSearchMaxResults: 10
+  # 留空以移除主题默认的 "Powered by Oink" 页脚中心文案
   footer_center_info: ""
   copyright:
     authors: 王鹏
@@ -63,6 +87,26 @@ params:
   ui:
     showLightDarkModeMenu: true
     sidebar_menu_foldable: true
+    # 页面操作菜单：增加分享到微博、微信（二维码）、本页二维码、打印
+    page_context_menu:
+      enable: true
+      assistant_links: false
+      links:
+        - name: 分享到微博
+          icon: fa-brands fa-weibo
+          url: "https://service.weibo.com/share/share.php?url={url}&title={title}"
+          target: _blank
+        - name: 分享到微信
+          icon: fa-brands fa-weixin
+          url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={url}"
+          target: _blank
+        - name: 本页二维码
+          icon: fa-solid fa-qrcode
+          url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={url}"
+          target: _blank
+        - name: 打印本页
+          icon: fa-solid fa-print
+          action: print
 
 # ── 内容扩展约定（新增即自动套用当前样式，无需改代码）──────────────
 # · 新增文章：在任意专栏/博客目录下加 .md 文件即可，标签/分类见 front matter。

@@ -1,0 +1,44 @@
+{{- /* Custom footer bottom bar:
+       - Left: plain-text "Powered by Oink" (no hyperlink).
+       - Center: copyright, CC BY 4.0 license, and ICP filing number.
+       - Right: language selector (kept from theme).
+   Input: a page, or a dict {page, nested, collapsible}. */ -}}
+{{- $p := . -}}
+{{- $nested := false -}}
+{{- $collapsible := false -}}
+{{- if reflect.IsMap . -}}
+  {{- $p = .page -}}
+  {{- $nested = .nested | default false -}}
+  {{- $collapsible = .collapsible | default false -}}
+{{- end -}}
+{{- with $p -}}
+{{- $year := now.Year -}}
+{{- $from := $p.Site.Params.copyright.from_year | default $year -}}
+{{- $centerText := printf "© %d 王鹏 · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) · [京ICP备2025143189号](https://beian.miit.gov.cn/)" $from -}}
+{{- if ne $p.Site.Language.Lang "zh" -}}
+  {{- $centerText = printf "© %d Wang Peng · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) · ICP Filing: [京ICP备2025143189号](https://beian.miit.gov.cn/)" $from -}}
+{{- end -}}
+{{- $tag := cond $nested "div" "footer" -}}
+{{- $attr := cond $nested "" " data-td-shell-footer" -}}
+{{ printf `<%s class="td-shell-footline d-print-none"%s>` $tag $attr | safeHTML }}
+  <div class="td-shell-footline__copy">Powered by Oink</div>
+  <div class="td-shell-footline__center">{{ $p.RenderString (dict "display" "inline") $centerText }}</div>
+  <div class="td-shell-footline__right">
+    <div class="td-shell-footline__lang">
+      {{ partial "language-selector.html" (dict "page" . "class" "td-shell-language-selector" "mode" "list") }}
+      {{- if le (len (partial "language-targets.html" .)) 1 }}
+        {{- with (partial "landing/alt-site.html" .) }}<a class="td-shell-alt-site" href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .label }}</a>{{ end -}}
+      {{- end }}
+    </div>
+    {{- if $collapsible }}
+    <button type="button" class="td-shell-footline__toggle" data-td-footer-toggle
+      aria-expanded="true" aria-controls="td-site-footer"
+      title="{{ T "ui_footer_collapse" }}" aria-label="{{ T "ui_footer_collapse" }}"
+      data-label-collapse="{{ T "ui_footer_collapse" }}"
+      data-label-expand="{{ T "ui_footer_expand" }}">
+      {{- partialCached "shell/icon.html" "chevron-down" "chevron-down" -}}
+    </button>
+    {{- end }}
+  </div>
+{{ printf "</%s>" $tag | safeHTML }}
+{{- end -}}
