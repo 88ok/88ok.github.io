@@ -26,6 +26,9 @@ tar -C /tmp -xzf /tmp/hugo.tgz
 
 # Override baseURL with the CF Pages deployment URL so absolute links point
 # to the live CF site (not the hardcoded github.io in hugo.yaml).
-BASE_URL="${CF_PAGES_URL%/}/"
+# CF_PAGES_URL is injected by Cloudflare only in the *build* command context;
+# guard with a default (root-relative) so the script never crashes under `set -u`.
+BASE_URL="${CF_PAGES_URL:-/}"
+BASE_URL="${BASE_URL%/}/"
 echo ">> Building with baseURL=${BASE_URL}"
 /tmp/hugo --baseURL "${BASE_URL}" --gc --minify
