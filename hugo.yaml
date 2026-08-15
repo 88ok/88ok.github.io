@@ -3,6 +3,12 @@ baseURL: https://88ok.github.io/
 defaultContentLanguage: zh
 enableMissingTranslation: false
 
+# 标签与分类：文章 front matter 用 tags / categories 标注，
+# 详情页自动展示，并生成 /tags/ 与 /categories/ 归档页。
+taxonomies:
+  tag: tags
+  category: categories
+
 # 语言：中文为默认（无前缀 /），英文挂在 /en/ 下，可在导航栏切换
 languages:
   zh:
@@ -49,15 +55,24 @@ markup:
 
 params:
   offlineSearch: true
-  github_repo: https://github.com/88ok/88ok.github.io
-  github_branch: main
+  # 留空以移除主题默认的 "Powered by Oink" 页脚（站点只保留用户相关内容）。
+  footer_center_info: ""
   copyright:
     authors: 王鹏
     from_year: 2026
-  footer_center_info: 'Powered by [Oink](https://oink.pgsty.com)'
   ui:
     showLightDarkModeMenu: true
     sidebar_menu_foldable: true
+
+# ── 内容扩展约定（新增即自动套用当前样式，无需改代码）──────────────
+# · 新增文章：在任意专栏/博客目录下加 .md 文件即可，标签/分类见 front matter。
+# · 新增专栏：建 content/<新专栏>/_index.md，并写：
+#       type: book
+#       cascade:
+#         type: book
+#   即可获得「左文章树 / 中内容 / 右本页目录」三栏布局，与现有专栏一致。
+# · 标签 / 分类：文章 front matter 用 tags: [...] / categories: [...] 标注，
+#   详情页自动展示，并生成 /tags/ 与 /categories/ 归档页。
 
 module:
   imports:

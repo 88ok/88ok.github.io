@@ -2,6 +2,8 @@
 title: ECIF in one read — why customer data must be centralized
 date: 2026-08-10
 description: "From duplicate accounts to a unified customer view, ECIF answers banking's most basic question: who is the customer?"
+tags: [ECIF, customer, core-banking]
+categories: [banking]
 ---
 
 Before ECIF, branches, internet banking, and the card center each kept their own customer records. The same person appeared with different names, IDs, and contacts across systems — making both marketing and risk control impossible.

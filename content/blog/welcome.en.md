@@ -2,6 +2,8 @@
 title: First post — why "Zhuifeng Notes"
 date: 2026-08-15
 description: Thoughts from years of building banking system architecture, and why this site exists.
+tags: [notes, opening]
+categories: [blog]
 ---
 
 After years of building banking system architecture, most of what I've learned — the pitfalls, the hard-won insights — lived scattered across notes and chat logs. This site is where I organize them.

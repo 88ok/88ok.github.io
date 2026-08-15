@@ -35,9 +35,7 @@
            centered in the row by the grid. */ -}}
       <div class="nav-links nav-menu-zone">
         {{- range $index, $entry := .Site.Menus.main -}}
-          {{- if ne .Identifier "github" -}}
-            {{- partial "navbar-item.html" (dict "page" $ "entry" $entry "mode" "desktop" "index" $index) -}}
-          {{- end -}}
+          {{- partial "navbar-item.html" (dict "page" $ "entry" $entry "mode" "desktop" "index" $index) -}}
         {{- end }}
       </div>
 
@@ -139,13 +137,11 @@
 <div class="landing-mobile-menu d-print-none" id="td-landing-mobile-menu" data-td-landing-menu hidden>
   <nav aria-label="{{ T "ui_main_nav" }}">
     {{- range .Site.Menus.main }}
-      {{- if ne .Identifier "github" }}
-        {{- partial "navbar-entry-link.html" (dict "page" $ "entry" . "class" "mobile-menu-link") -}}
-        {{- if .HasChildren }}
-        <div class="landing-mobile-menu__children">
-          {{- partial "navbar-group-items.html" (dict "page" $ "items" .Children "mode" "mobile" "top" . "depth" 1) -}}
-        </div>
-        {{- end }}
+      {{- partial "navbar-entry-link.html" (dict "page" $ "entry" . "class" "mobile-menu-link") -}}
+      {{- if .HasChildren }}
+      <div class="landing-mobile-menu__children">
+        {{- partial "navbar-group-items.html" (dict "page" $ "items" .Children "mode" "mobile" "top" . "depth" 1) -}}
+      </div>
       {{- end }}
     {{- end }}
     {{- if $localSearch }}

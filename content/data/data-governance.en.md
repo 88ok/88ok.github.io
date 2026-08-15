@@ -2,6 +2,8 @@
 title: Bank Data Governance — metadata before quality
 date: 2026-08-08
 description: Data governance is often reduced to form-filling; the real lever is metadata lineage and quality rules built into the pipeline.
+tags: [data-governance, metadata, data-quality]
+categories: [data]
 ---
 
 Many bank data-governance programs degenerate into "fill in the metadata, assign owners." To get results, governance must be built into the data production pipeline.

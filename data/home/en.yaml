@@ -10,7 +10,6 @@ hero:
   eyebrow: Architecture · Banking · Data
   title: Zhuifeng Notes
   desc: Wang Peng's personal site. Deep dives into **banking system architecture**, **distributed systems and payment clearing**, **data governance and security**, plus field notes from production.
-  note: Docs, columns, and blog — all statically generated with Hugo + Oink, with offline search and language switching.
   actions:
     - label: Read columns
       url: /columns

@@ -2,6 +2,8 @@
 title: Applying DDD Aggregates in a Banking ECIF
 date: 2026-08-12
 description: Is a customer "one entity" or "a set of contexts"? Reslicing the ECIF customer model with aggregate roots and bounded contexts.
+tags: [DDD, aggregate, ECIF]
+categories: [architecture]
 ---
 
 In an ECIF, the concept of "customer" is huge: retail, corporate, and interbank clients each have different attributes, relationships, and lifecycles. Forcing them into one giant `Customer` entity makes the code rot fast.
