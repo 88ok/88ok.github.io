@@ -1,6 +1,9 @@
 ---
 title: 专栏
 description: 围绕工作主线的系列专栏，按主题深入展开。
+type: book
+cascade:
+  type: book
 ---
 
 这里收录我按主题系统整理的专栏。每个专栏聚焦一条主线，文章之间互为体系。

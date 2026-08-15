@@ -1,12 +1,15 @@
 ---
 title: Columns
-description: Themed column series organized around my day-to-day work.
+description: Themed column series organized along the main work tracks.
+type: book
+cascade:
+  type: book
 ---
 
-Themed column series, each focused on one主线 (main thread), with articles that build on each other.
+A collection of columns I organize by theme — each follows one main thread, with articles forming a system.
 
-- **[Architecture](/architecture)**: ECIF, core banking, distributed systems, and DDD.
-- **[Banking](/banking)**: payment clearing, interest and limits, accounts/cards, AML/KYC/CRS.
-- **[Data](/data)**: data governance, encryption and security, sharding, messaging and stream processing.
+- **[Architecture](/en/architecture)**: ECIF, core systems, distributed architecture, and DDD.
+- **[Banking Business](/en/banking)**: payment & clearing, interest & limits, accounts/cards, AML/KYC/CRS.
+- **[Data](/en/data)**: data governance, encryption & security, sharding, messaging & streaming.
 
-You can also pick a column from the "Columns" group in the top navigation. To add a new column, just create a sibling directory under `content/`.
+Pick a column from the "Columns" menu above. To add a new column, create a sibling directory under `content/`.
