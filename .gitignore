@@ -1,0 +1,12 @@
+# Hugo 构建产物
+/public/
+/resources/
+/hugo_stats.json
+.hugo_build.lock
+
+# 项目内部数据（非站点内容）
+.workbuddy/
+
+# 操作系统/编辑器
+.DS_Store
+*.swp

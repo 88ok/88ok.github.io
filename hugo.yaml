@@ -1,0 +1,67 @@
+title: 追风笔记
+baseURL: https://88ok.github.io/
+defaultContentLanguage: zh
+enableMissingTranslation: false
+
+# 语言：中文为默认（无前缀 /），英文挂在 /en/ 下，可在导航栏切换
+languages:
+  zh:
+    label: 简体中文
+    weight: 1
+    title: 追风笔记
+    params:
+      description: 王鹏的个人技术站点：架构、银行业务、数据专栏与博客。
+    menus:
+      main:
+        - { name: 首页, pageRef: /, weight: 10 }
+        - { name: 博客, pageRef: /blog, weight: 20 }
+        - identifier: columns
+          name: 专栏
+          pageRef: /columns
+          weight: 30
+        - { name: 架构专栏, pageRef: /architecture, parent: columns, weight: 31 }
+        - { name: 银行业务专栏, pageRef: /banking, parent: columns, weight: 32 }
+        - { name: 数据专栏, pageRef: /data, parent: columns, weight: 33 }
+        - { name: 关于, pageRef: /about, weight: 40 }
+  en:
+    label: English
+    weight: 2
+    title: Zhuifeng Notes
+    params:
+      description: Wang Peng's personal site — architecture, banking, and data columns, plus a blog.
+    menus:
+      main:
+        - { name: Home, pageRef: /, weight: 10 }
+        - { name: Blog, pageRef: /blog, weight: 20 }
+        - identifier: columns
+          name: Columns
+          pageRef: /columns
+          weight: 30
+        - { name: Architecture, pageRef: /architecture, parent: columns, weight: 31 }
+        - { name: Banking, pageRef: /banking, parent: columns, weight: 32 }
+        - { name: Data, pageRef: /data, parent: columns, weight: 33 }
+        - { name: About, pageRef: /about, weight: 40 }
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+params:
+  offlineSearch: true
+  github_repo: https://github.com/88ok/88ok.github.io
+  github_branch: main
+  copyright:
+    authors: 王鹏
+    from_year: 2026
+  footer_center_info: 'Powered by [Oink](https://oink.pgsty.com)'
+  ui:
+    showLightDarkModeMenu: true
+    sidebar_menu_foldable: true
+
+module:
+  imports:
+    - path: github.com/pgsty/oink
+  hugoVersion:
+    extended: true
+    min: 0.160.1

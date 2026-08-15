@@ -1,0 +1,61 @@
+# 首页落地页（中文，默认语言）。修改 sections 顺序即可调整板块顺序。
+sections:
+  - hero
+  - cards
+  - type: recent
+    partial: landing/sections/recent.html
+  - cta
+
+hero:
+  eyebrow: 架构 · 银行业务 · 数据
+  title: 追风笔记
+  desc: 王鹏的个人技术站点。聚焦**银行系统架构**、**分布式与支付清算**、**数据治理与安全**，以及一线实战中的思考与笔记。
+  note: 文档、专栏与博客，全部由 Hugo + Oink 静态生成，支持离线搜索与中英切换。
+  actions:
+    - label: 阅读专栏
+      url: /columns
+      icon: fa-solid fa-layer-group
+      style: primary
+    - label: 进入博客
+      url: /blog
+      icon: fa-solid fa-newspaper
+      style: ghost
+
+cards:
+  eyebrow: 专栏
+  title: 三大专栏
+  desc: 围绕我的工作主线展开的系列内容，持续更新，方便你按需深入。
+  columns: 3
+  link_label: 进入专栏
+  items:
+    - name: 架构专栏
+      icon: fa-solid fa-diagram-project
+      meta: Architecture
+      desc: 客户信息系统（ECIF）、核心系统、分布式架构与领域驱动设计（DDD）的实战拆解。
+      url: /architecture
+    - name: 银行业务专栏
+      icon: fa-solid fa-building-columns
+      meta: Banking
+      desc: 支付清算、计息与限额、账户/卡、反洗钱（AML）/KYC/CRS 等银行核心业务梳理。
+      url: /banking
+    - name: 数据专栏
+      icon: fa-solid fa-database
+      meta: Data
+      desc: 数据治理、加密与安全、分库分表、消息与流处理相关的技术与方法论。
+      url: /data
+
+recent:
+  eyebrow: 近期
+  title: 近期博客
+  desc: 最新的文章与随笔，更多内容见博客页。
+  limit: 5
+  more_label: 查看全部博客
+  more_url: /blog
+  empty: 还没有文章，敬请期待。
+
+cta:
+  title: 一起把复杂系统讲清楚
+  desc: 如果你也在做银行系统、分布式架构或支付清算，欢迎交流。
+  label: 关于我
+  url: /about
+  style: primary

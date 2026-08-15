@@ -1,0 +1,61 @@
+# Homepage landing page (English). Order follows data/home.yaml.
+sections:
+  - hero
+  - cards
+  - type: recent
+    partial: landing/sections/recent.html
+  - cta
+
+hero:
+  eyebrow: Architecture · Banking · Data
+  title: Zhuifeng Notes
+  desc: Wang Peng's personal site. Deep dives into **banking system architecture**, **distributed systems and payment clearing**, **data governance and security**, plus field notes from production.
+  note: Docs, columns, and blog — all statically generated with Hugo + Oink, with offline search and language switching.
+  actions:
+    - label: Read columns
+      url: /columns
+      icon: fa-solid fa-layer-group
+      style: primary
+    - label: Open blog
+      url: /blog
+      icon: fa-solid fa-newspaper
+      style: ghost
+
+cards:
+  eyebrow: Columns
+  title: Three columns
+  desc: Series organized around my day-to-day work, updated continuously.
+  columns: 3
+  link_label: Open column
+  items:
+    - name: Architecture
+      icon: fa-solid fa-diagram-project
+      meta: Architecture
+      desc: Hands-on breakdowns of ECIF, core banking, distributed architecture, and Domain-Driven Design (DDD).
+      url: /architecture
+    - name: Banking
+      icon: fa-solid fa-building-columns
+      meta: Banking
+      desc: Payment clearing, interest and limits, accounts/cards, AML/KYC/CRS, and other core banking topics.
+      url: /banking
+    - name: Data
+      icon: fa-solid fa-database
+      meta: Data
+      desc: Data governance, encryption and security, sharding, messaging, and stream processing.
+      url: /data
+
+recent:
+  eyebrow: Recent
+  title: Recent blog
+  desc: Latest articles and notes — more on the blog page.
+  limit: 5
+  more_label: View all posts
+  more_url: /blog
+  empty: No posts yet — stay tuned.
+
+cta:
+  title: Let's make complex systems clear
+  desc: If you work on banking systems, distributed architecture, or payment clearing, let's talk.
+  label: About me
+  url: /about
+  style: primary

@@ -1,0 +1,26 @@
+{{- /* 自定义落地页板块：动态列出「博客」栏目下最近的若干篇文章。
+       该 partial 由 data/home.yaml 中的 `type: recent` + `partial:` 字段挂载。 */ -}}
+{{- $page := .page -}}
+{{- $data := .data -}}
+{{- $id := .id -}}
+<section id="{{ $id }}" class="oink-section oink-recent-section{{ with $data.class }} {{ . }}{{ end }}"{{ with $data.title }} aria-labelledby="{{ $id }}-title"{{ end }}>
+  <div class="landing-container">
+    {{- partial "landing/heading.html" (dict "page" $page "data" $data "id" $id) -}}
+    {{- $limit := $data.limit | default 5 -}}
+    {{- $pages := where $page.Site.RegularPages "Section" "blog" -}}
+    {{- $pages = sort $pages "Date" "desc" | first $limit -}}
+    {{- if $pages }}
+    <ul class="oink-recent-list">
+      {{- range $pages }}
+      <li class="oink-recent-item">
+        <a class="oink-recent-item__link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{- with .Date }}<time class="oink-recent-item__date" datetime="{{ .Format "2006-01-02T15:04:05Z07:00" }}">{{ .Format "2006-01-02" }}</time>{{ end -}}
+      </li>
+      {{- end }}
+    </ul>
+    {{- else }}
+    <p class="oink-recent-empty">{{ $data.empty | default "暂无文章。" }}</p>
+    {{- end }}
+    {{- with $data.more_url }}<a class="oink-button oink-button--ghost" href="{{ . | relLangURL }}">{{ $data.more_label | default "查看全部" }} <span aria-hidden="true">→</span></a>{{ end -}}
+  </div>
+</section>

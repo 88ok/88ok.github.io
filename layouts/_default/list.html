@@ -1,0 +1,9 @@
+{{ define "main" }}
+<section class="td-content">
+  {{ partial "page-title.html" . }}
+  {{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
+  <div class="td-content__body">{{ .Content }}</div>
+  {{ partial "section-index.html" . }}
+  {{ partial "pager.html" . }}
+</section>
+{{ end }}
