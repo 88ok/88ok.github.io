@@ -4,6 +4,21 @@ sections:
   - cards
   - type: recent
     partial: landing/sections/recent.html
+  - type: cards
+    id: projects
+    data:
+      eyebrow: 项目
+      title: 我的项目
+      desc: 我正在做或长期关注的产品与工具，随缘补充。
+      columns: 3
+      link_label: 访问
+      items:
+        - name: PageFly
+          icon: fa-solid fa-rocket
+          meta: 页面托管
+          desc: AI 时代的页面托管，支持 HTML 与 Markdown。
+          url: https://fly.882680.xyz
+          external: true
   - cta
 
 hero:

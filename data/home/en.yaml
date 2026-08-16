@@ -4,6 +4,21 @@ sections:
   - cards
   - type: recent
     partial: landing/sections/recent.html
+  - type: cards
+    id: projects
+    data:
+      eyebrow: Projects
+      title: My Projects
+      desc: Products and tools I'm building or following — updated now and then.
+      columns: 3
+      link_label: Visit
+      items:
+        - name: PageFly
+          icon: fa-solid fa-rocket
+          meta: Page Hosting
+          desc: AI-era page hosting — supports HTML and Markdown.
+          url: https://fly.882680.xyz
+          external: true
   - cta
 
 hero:
