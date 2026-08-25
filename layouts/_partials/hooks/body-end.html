@@ -1,0 +1,9 @@
+{{/* Site-specific runtime: make share/QR/copy links use the current domain,
+     not the build-time baseURL. Loaded after the theme's action scripts. */ -}}
+{{ $js := resources.Get "js/share-current-url.js" -}}
+{{ if hugo.IsProduction -}}
+  {{ $js = $js | minify | fingerprint -}}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ else -}}
+  <script src="{{ $js.RelPermalink }}"></script>
+{{ end -}}

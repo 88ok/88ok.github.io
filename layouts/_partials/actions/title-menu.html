@@ -100,20 +100,34 @@
       {{ partialCached "shell/icon.html" "files" "files" }}<span>{{ T "print_entire_section" }}</span>
     </a></li>
     {{- end }}
-    {{- /* Site-specific custom actions, e.g. share/print. */ -}}
+    {{- /* Site-specific custom actions, e.g. share/print/copy. */ -}}
     {{- with $customLinks }}
     {{- range . -}}
       {{- $hasAction := and (isset . "action") (ne .action "") -}}
       {{- if $hasAction }}
+        {{- if eq .action "copy_link" -}}
+    <li><button type="button" class="td-page-actions__item" data-td-action="copy_link">
+      {{ with .icon }}<i class="{{ . }}" aria-hidden="true"></i>{{ else }}{{ partialCached "shell/icon.html" "copy" "copy" }}{{ end }}<span>{{ .name }}</span>
+    </button></li>
+        {{- else -}}
     <li><button type="button" class="td-page-actions__item" data-td-action="{{ .action }}">
       {{ with .icon }}<i class="{{ . }}" aria-hidden="true"></i>{{ else }}{{ partialCached "shell/icon.html" "bolt" "bolt" }}{{ end }}<span>{{ .name }}</span>
     </button></li>
+        {{- end -}}
       {{- else }}
-        {{- $url := partial "url-template.html" (dict "template" .url "values" (dict
-          "url" $p.Permalink "title" $p.Title "markdown_url" $markdownURL)) -}}
+        {{- $templateURL := .url -}}
+        {{- $dynamicShare := strings.Contains $templateURL "{current_url}" -}}
+        {{- $url := "" -}}
+        {{- if $dynamicShare -}}
+          {{- $url = replace $templateURL "{current_url}" $p.RelPermalink -}}
+          {{- $url = replace $url "{title}" ($p.Title | urlquery) -}}
+        {{- else -}}
+          {{- $url = partial "url-template.html" (dict "template" .url "values" (dict
+            "url" $p.Permalink "title" $p.Title "markdown_url" $markdownURL)) -}}
+        {{- end -}}
         {{- $target := .target | default "_blank" -}}
         {{- $rel := .rel | default "noopener noreferrer" -}}
-    <li><a class="td-page-actions__item" href="{{ $url | safeURL }}" target="{{ $target }}" rel="{{ $rel }}">
+    <li><a class="td-page-actions__item" href="{{ $url | safeURL }}" target="{{ $target }}" rel="{{ $rel }}"{{ if $dynamicShare }} data-td-share-dynamic{{ end }}>
       {{ with .icon }}<i class="{{ . }}" aria-hidden="true"></i>{{ else }}{{ partialCached "shell/icon.html" "external-link" "external-link" }}{{ end }}<span>{{ .name }}</span>
     </a></li>
       {{- end }}

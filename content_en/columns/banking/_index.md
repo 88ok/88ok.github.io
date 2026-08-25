@@ -2,6 +2,8 @@
 title: Banking
 description: Payment clearing, interest and limits, accounts/cards, AML/KYC/CRS — core banking topics.
 type: book
+url: /en/banking/
+sidebar_root_menu: false
 cascade:
   type: book
 ---

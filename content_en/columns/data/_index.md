@@ -2,6 +2,8 @@
 title: Data
 description: Data governance, encryption and security, sharding, messaging and stream processing.
 type: book
+url: /en/data/
+sidebar_root_menu: false
 cascade:
   type: book
 ---

@@ -45,17 +45,20 @@ languages:
       ui:
         page_context_menu:
           links:
+            - name: Copy link
+              icon: fa-solid fa-link
+              action: copy_link
             - name: Share on Weibo
               icon: fa-brands fa-weibo
-              url: "https://service.weibo.com/share/share.php?url={url}&title={title}"
+              url: "https://service.weibo.com/share/share.php?url={current_url}&title={title}"
               target: _blank
             - name: Share on WeChat
               icon: fa-brands fa-weixin
-              url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={url}"
+              url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={current_url}"
               target: _blank
             - name: Page QR Code
               icon: fa-solid fa-qrcode
-              url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={url}"
+              url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={current_url}"
               target: _blank
             - name: Print this page
               icon: fa-solid fa-print
@@ -96,17 +99,20 @@ params:
       enable: true
       assistant_links: false
       links:
+        - name: 复制链接
+          icon: fa-solid fa-link
+          action: copy_link
         - name: 分享到微博
           icon: fa-brands fa-weibo
-          url: "https://service.weibo.com/share/share.php?url={url}&title={title}"
+          url: "https://service.weibo.com/share/share.php?url={current_url}&title={title}"
           target: _blank
         - name: 分享到微信
           icon: fa-brands fa-weixin
-          url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={url}"
+          url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={current_url}"
           target: _blank
         - name: 本页二维码
           icon: fa-solid fa-qrcode
-          url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={url}"
+          url: "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={current_url}"
           target: _blank
         - name: 打印本页
           icon: fa-solid fa-print

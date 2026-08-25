@@ -2,6 +2,8 @@
 title: 银行业务专栏
 description: 支付清算、计息与限额、账户/卡、反洗钱（AML）/KYC/CRS 等银行核心业务梳理。
 type: book
+url: /banking/
+sidebar_root_menu: false
 cascade:
   type: book
 ---

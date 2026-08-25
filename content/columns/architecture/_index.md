@@ -2,6 +2,8 @@
 title: 架构专栏
 description: 客户信息系统、核心系统、分布式架构与领域驱动设计（DDD）的实战拆解。
 type: book
+url: /architecture/
+sidebar_root_menu: false
 cascade:
   type: book
 ---
