@@ -1,6 +1,10 @@
 title: 追风笔记
 baseURL: https://88ok.github.io/
 defaultContentLanguage: zh
+# 中文在根路径 /，英文挂在 /en/ 下（默认语言不入子目录）。
+# 换域名部署时，用 `hugo --baseURL https://你的域名/` 覆盖即可，
+# 内部链接统一使用相对路径（pageRef / relref / 根相对路径），与域名解耦。
+defaultContentLanguageInSubdir: false
 enableMissingTranslation: false
 
 # 标签与分类：文章 front matter 用 tags / categories 标注，
@@ -12,6 +16,7 @@ taxonomies:
 # 语言：中文为默认（无前缀 /），英文挂在 /en/ 下，可在导航栏切换
 languages:
   zh:
+    contentDir: content
     label: 简体中文
     weight: 1
     title: 追风笔记
@@ -34,6 +39,7 @@ languages:
         - { name: 项目, url: /#projects, weight: 35 }
         - { name: 关于, pageRef: /about, weight: 40 }
   en:
+    contentDir: content_en
     label: English
     weight: 2
     title: Zhuifeng Notes
@@ -119,6 +125,12 @@ params:
 #   即可获得「左文章树 / 中内容 / 右本页目录」三栏布局，与现有专栏一致。
 # · 标签 / 分类：文章 front matter 用 tags: [...] / categories: [...] 标注，
 #   详情页自动展示，并生成 /tags/ 与 /categories/ 归档页。
+# · 双语结构：中文源文件放 content/（默认语言，根路径 /），
+#   对应的英文翻译放 content_en/ 下「相同相对路径 + 同名」文件
+#   （如 content/architecture/ddd.md ↔ content_en/architecture/ddd.md），
+#   Hugo 据此自动配对语言切换。新增英文请用 AI 翻译中文后落到 content_en/ 同名路径。
+#   内部链接请使用相对路径（pageRef / {{< relref >}} / 根相对如 /en/blog），
+#   避免写死域名，以便部署到任意域名。
 
 module:
   imports:
