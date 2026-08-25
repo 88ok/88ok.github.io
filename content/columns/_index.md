@@ -1,6 +1,6 @@
 ---
-title: 专栏
-description: 围绕工作主线系统整理的系列专栏，按主题深入展开。
+title: 专题
+description: 围绕工作主线系统整理的系列专题，按主题深入展开。
 type: book
 icon: fa-solid fa-layer-group
 sidebar_root_for: self
@@ -18,7 +18,7 @@ cascade:
   sidebar_headings: 3
 ---
 
-这里是按主题整理的专栏入口。每个专栏围绕一条工作主线展开，把相关文章串成可长期查阅的知识脉络。
+这里是按主题整理的专题入口。每个专题围绕一条工作主线展开，把相关文章串成可长期查阅的知识脉络。
 
 ## 目录
 

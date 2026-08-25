@@ -21,18 +21,32 @@ languages:
     weight: 1
     title: 追风笔记
     params:
-      description: 王鹏的个人技术站点：架构、银行业务、数据专栏与博客。
+      description: 王鹏的个人技术站点：技术框架、专题专栏（架构/银行业务/数据）与博客。
       # 中文日期格式：最后修改与博客列表统一显示为「2026年8月15日」
       time_format_default: "2006年1月2日"
       time_format_blog: "2006年1月2日"
     menus:
       main:
-        - { name: 首页, pageRef: /, weight: 10 }
-        - { name: 博客, pageRef: /blog, weight: 20 }
+        - { name: 博客, pageRef: /blog, weight: 10 }
+        - identifier: tech
+          name: 技术
+          pageRef: /tech
+          weight: 20
+          children:
+            - { name: Dubbo, pageRef: /tech/dubbo, weight: 1 }
+            - { name: MySQL, pageRef: /tech/mysql, weight: 2 }
+            - { name: ZooKeeper, pageRef: /tech/zookeeper, weight: 3 }
+            - { name: Redis, pageRef: /tech/redis, weight: 4 }
+            - { name: Kafka, pageRef: /tech/kafka, weight: 5 }
         - identifier: columns
-          name: 专栏
+          name: 专题
           pageRef: /columns
           weight: 30
+          children:
+            - { name: 架构专栏, pageRef: /architecture, weight: 1 }
+            - { name: 银行业务专栏, pageRef: /banking, weight: 2 }
+            - { name: 数据专栏, pageRef: /data, weight: 3 }
+            - { name: 专题列表, pageRef: /columns, weight: 4 }
         - { name: 项目, pageRef: /projects, weight: 35 }
         - { name: 关于, pageRef: /about, weight: 40 }
   en:
@@ -41,7 +55,7 @@ languages:
     weight: 2
     title: Zhuifeng Notes
     params:
-      description: Wang Peng's personal site — architecture, banking, and data columns, plus a blog.
+      description: Wang Peng's personal site — tech frameworks, topic columns (architecture/banking/data), and a blog.
       ui:
         page_context_menu:
           links:
@@ -65,12 +79,26 @@ languages:
               action: print
     menus:
       main:
-        - { name: Home, pageRef: /, weight: 10 }
-        - { name: Blog, pageRef: /blog, weight: 20 }
+        - { name: Blog, pageRef: /blog, weight: 10 }
+        - identifier: tech
+          name: Tech
+          pageRef: /tech
+          weight: 20
+          children:
+            - { name: Dubbo, pageRef: /tech/dubbo, weight: 1 }
+            - { name: MySQL, pageRef: /tech/mysql, weight: 2 }
+            - { name: ZooKeeper, pageRef: /tech/zookeeper, weight: 3 }
+            - { name: Redis, pageRef: /tech/redis, weight: 4 }
+            - { name: Kafka, pageRef: /tech/kafka, weight: 5 }
         - identifier: columns
-          name: Columns
+          name: Topics
           pageRef: /columns
           weight: 30
+          children:
+            - { name: Architecture, pageRef: /architecture, weight: 1 }
+            - { name: Banking, pageRef: /banking, weight: 2 }
+            - { name: Data, pageRef: /data, weight: 3 }
+            - { name: All Topics, pageRef: /columns, weight: 4 }
         - { name: Projects, pageRef: /projects, weight: 35 }
         - { name: About, pageRef: /about, weight: 40 }
 

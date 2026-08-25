@@ -1,5 +1,5 @@
 ---
-title: Columns
+title: Topics
 description: Themed column series organized along the main work tracks.
 type: book
 icon: fa-solid fa-layer-group
@@ -18,7 +18,7 @@ cascade:
   sidebar_headings: 3
 ---
 
-Entry points to themed columns. Each column follows one main thread, with articles forming a long-term reference.
+Entry points to themed topics. Each topic follows one main thread, with articles forming a long-term reference.
 
 ## Contents
 
