@@ -83,17 +83,19 @@ markup:
       unsafe: true
 
 params:
-  offlineSearch: true
+  offline_search: true
   # 只索引标题/描述/摘要，减小搜索包体积（内容页仍可通过摘要命中）
-  offlineSearchIndex: summary
-  offlineSearchMaxResults: 10
+  offline_search_index: summary
+  offline_search_max_results: 10
   # 留空以移除主题默认的 "Powered by Oink" 页脚中心文案
   footer_center_info: ""
   copyright:
     authors: 王鹏
     from_year: 2026
   ui:
-    showLightDarkModeMenu: true
+    dark_mode:
+      enable: true
+      show_menu: true
     sidebar_menu_foldable: true
     # 页面操作菜单：增加分享到微博、微信（二维码）、本页二维码、打印
     page_context_menu:
