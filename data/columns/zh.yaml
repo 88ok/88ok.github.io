@@ -1,0 +1,49 @@
+# 专栏落地页（中文）。sections 顺序即渲染顺序；hero/cards/cta 为各分区数据。
+sections:
+  - hero
+  - type: cards
+    id: columns-list
+    data:
+      eyebrow: 专栏
+      title: 三大专栏
+      desc: 围绕我的工作主线展开的系列内容，持续更新，方便你按需深入。
+      columns: 3
+      link_label: 进入专栏
+      items:
+        - name: 架构专栏
+          icon: fa-solid fa-diagram-project
+          meta: Architecture
+          desc: 客户信息系统（ECIF）、核心系统、分布式架构与领域驱动设计（DDD）的实战拆解。
+          url: /architecture
+        - name: 银行业务专栏
+          icon: fa-solid fa-building-columns
+          meta: Banking
+          desc: 支付清算、计息与限额、账户/卡、反洗钱（AML）/KYC/CRS 等银行核心业务梳理。
+          url: /banking
+        - name: 数据专栏
+          icon: fa-solid fa-database
+          meta: Data
+          desc: 数据治理、加密与安全、分库分表、消息与流处理相关的技术与方法论。
+          url: /data
+  - cta
+
+hero:
+  eyebrow: 专栏
+  title: 专栏合集
+  desc: 按主题系统整理的系列内容，每条主线互为体系，方便你按需深入。
+  actions:
+    - label: 返回首页
+      url: /
+      icon: fa-solid fa-house
+      style: ghost
+    - label: 进入博客
+      url: /blog
+      icon: fa-solid fa-newspaper
+      style: primary
+
+cta:
+  title: 一起把复杂系统讲清楚
+  desc: 如果你也在做银行系统、分布式架构或支付清算，欢迎交流。
+  label: 关于我
+  url: /about
+  style: primary

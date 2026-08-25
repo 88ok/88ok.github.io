@@ -1,0 +1,49 @@
+# Columns landing page (English).
+sections:
+  - hero
+  - type: cards
+    id: columns-list
+    data:
+      eyebrow: Columns
+      title: Three columns
+      desc: Series organized around my day-to-day work, updated continuously.
+      columns: 3
+      link_label: Open column
+      items:
+        - name: Architecture
+          icon: fa-solid fa-diagram-project
+          meta: Architecture
+          desc: Hands-on breakdowns of ECIF, core banking, distributed architecture, and Domain-Driven Design (DDD).
+          url: /architecture
+        - name: Banking
+          icon: fa-solid fa-building-columns
+          meta: Banking
+          desc: Payment clearing, interest and limits, accounts/cards, AML/KYC/CRS, and other core banking topics.
+          url: /banking
+        - name: Data
+          icon: fa-solid fa-database
+          meta: Data
+          desc: Data governance, encryption and security, sharding, messaging, and stream processing.
+          url: /data
+  - cta
+
+hero:
+  eyebrow: Columns
+  title: Column library
+  desc: Thematically organized series — each line of work forms its own system.
+  actions:
+    - label: Back home
+      url: /
+      icon: fa-solid fa-house
+      style: ghost
+    - label: Open blog
+      url: /blog
+      icon: fa-solid fa-newspaper
+      style: primary
+
+cta:
+  title: Let's make complex systems clear
+  desc: If you work on banking systems, distributed architecture, or payment clearing, let's talk.
+  label: About me
+  url: /about
+  style: primary

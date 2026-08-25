@@ -25,6 +25,12 @@ hero:
   eyebrow: 架构 · 银行业务 · 数据
   title: 追风笔记
   desc: 王鹏的个人技术站点。聚焦**银行系统架构**、**分布式与支付清算**、**数据治理与安全**，以及一线实战中的思考与笔记。
+  image:
+    light: /images/hero-light.svg
+    dark: /images/hero-dark.svg
+    alt: 追风笔记 · 架构与数据的流动
+  media:
+    hide_below: lg
   actions:
     - label: 阅读专栏
       url: /columns

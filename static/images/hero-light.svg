@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" fill="none" role="img" aria-label="追风笔记视觉：知识与数据的流动">
+  <defs>
+    <radialGradient id="glowL" cx="50%" cy="40%" r="62%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.20"/>
+      <stop offset="55%" stop-color="#3b82f6" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="blueL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#60a5fa"/>
+    </linearGradient>
+    <linearGradient id="copperL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e09a5a"/>
+      <stop offset="100%" stop-color="#b5713c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="480" height="480" fill="url(#glowL)"/>
+
+  <!-- 风：流动曲线 -->
+  <g stroke="url(#blueL)" stroke-width="2.4" stroke-linecap="round" opacity="0.5" fill="none">
+    <path d="M40 150 C 140 90, 250 200, 360 120 S 470 180, 440 250"/>
+    <path d="M30 300 C 150 250, 240 360, 380 280 S 460 330, 430 380"/>
+  </g>
+  <g stroke="url(#copperL)" stroke-width="2" stroke-linecap="round" opacity="0.45" fill="none">
+    <path d="M60 220 C 160 180, 300 260, 420 210"/>
+  </g>
+
+  <!-- 连接线：汇聚到中心 -->
+  <g stroke="#9bbcf0" stroke-width="1.6" opacity="0.7">
+    <line x1="240" y1="225" x2="120" y2="140"/>
+    <line x1="240" y1="225" x2="372" y2="150"/>
+    <line x1="240" y1="225" x2="150" y2="345"/>
+    <line x1="240" y1="225" x2="352" y2="350"/>
+  </g>
+
+  <!-- 外围节点 -->
+  <g>
+    <circle cx="120" cy="140" r="14" fill="#ffffff" stroke="url(#blueL)" stroke-width="3"/>
+    <circle cx="372" cy="150" r="11" fill="#ffffff" stroke="url(#copperL)" stroke-width="3"/>
+    <circle cx="150" cy="345" r="12" fill="#ffffff" stroke="url(#blueL)" stroke-width="3"/>
+    <circle cx="352" cy="350" r="10" fill="#ffffff" stroke="url(#copperL)" stroke-width="3"/>
+  </g>
+
+  <!-- 中心枢纽 -->
+  <circle cx="240" cy="225" r="52" fill="none" stroke="#3b82f6" stroke-width="1.5" opacity="0.22"/>
+  <circle cx="240" cy="225" r="34" fill="url(#blueL)"/>
+  <circle cx="240" cy="225" r="34" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+
+  <!-- 火花点缀 -->
+  <g fill="#f59e0b" opacity="0.85">
+    <circle cx="430" cy="120" r="4"/>
+    <circle cx="90" cy="300" r="3.5"/>
+    <circle cx="300" cy="90" r="3"/>
+  </g>
+</svg>

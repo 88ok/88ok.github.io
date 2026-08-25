@@ -1,0 +1,7 @@
+{{- /* /projects 落地页：加载 data/projects/<lang>.yaml 并用主题 landing 组件渲染 */ -}}
+{{- define "main" -}}
+{{- $page := . -}}
+{{- $lang := $page.Site.Language.Lang -}}
+{{- $data := index hugo.Data.projects $lang | default (index hugo.Data.projects "zh") -}}
+{{- with $data }}{{ partial "landing/render.html" (dict "page" $page "data" $data) }}{{ end -}}
+{{- end -}}

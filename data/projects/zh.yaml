@@ -1,0 +1,56 @@
+# 项目落地页（中文）。结构同 data/columns：sections 列表 + 各分区数据。
+sections:
+  - hero
+  - type: cards
+    id: projects-list
+    data:
+      eyebrow: 项目
+      title: 我的项目
+      desc: 产品、原型与研究：把银行科技与 AI 工作流落到可用的东西上。
+      columns: 3
+      link_label: 访问
+      items:
+        - name: PageFly
+          icon: fa-solid fa-rocket
+          meta: 已上线
+          desc: AI 时代的页面托管，支持 HTML 与 Markdown，部署在 Cloudflare 免费层。
+          url: https://fly.882680.xyz
+          external: true
+        - name: 投资顾问系统
+          icon: fa-solid fa-chart-line
+          meta: 进行中
+          desc: 基于 AKShare + Supabase + All-Weather 策略的投资研究与组合管理原型。
+        - name: 认知匹配 / AI 认知画像
+          icon: fa-solid fa-brain
+          meta: 规划中
+          desc: 轻资产创业原型：用认知画像做人与机会的匹配，每周投入有限。
+        - name: 中文 AI 人味化 skill
+          icon: fa-solid fa-feather-pointed
+          meta: v3.0.0-zh
+          desc: 覆盖 18 类 AI 痕迹的去人工化处理，让中文输出更自然。
+        - name: 银行业本体论
+          icon: fa-solid fa-diagram-project
+          meta: 研究中
+          desc: 把银行的组织、产品、业务与数据资产结构化，沉淀为可复用的知识体系。
+  - cta
+
+hero:
+  eyebrow: 项目
+  title: 我的项目
+  desc: 产品、原型与研究：把银行科技与 AI 工作流落到可用的东西上。
+  actions:
+    - label: 返回首页
+      url: /
+      icon: fa-solid fa-house
+      style: ghost
+    - label: 阅读专栏
+      url: /columns
+      icon: fa-solid fa-layer-group
+      style: primary
+
+cta:
+  title: 一起把复杂系统讲清楚
+  desc: 如果你也在做银行系统、分布式架构或支付清算，欢迎交流。
+  label: 关于我
+  url: /about
+  style: primary

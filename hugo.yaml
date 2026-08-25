@@ -33,10 +33,7 @@ languages:
           name: 专栏
           pageRef: /columns
           weight: 30
-        - { name: 架构专栏, pageRef: /architecture, parent: columns, weight: 31 }
-        - { name: 银行业务专栏, pageRef: /banking, parent: columns, weight: 32 }
-        - { name: 数据专栏, pageRef: /data, parent: columns, weight: 33 }
-        - { name: 项目, url: /#projects, weight: 35 }
+        - { name: 项目, pageRef: /projects, weight: 35 }
         - { name: 关于, pageRef: /about, weight: 40 }
   en:
     contentDir: content_en
@@ -71,10 +68,7 @@ languages:
           name: Columns
           pageRef: /columns
           weight: 30
-        - { name: Architecture, pageRef: /architecture, parent: columns, weight: 31 }
-        - { name: Banking, pageRef: /banking, parent: columns, weight: 32 }
-        - { name: Data, pageRef: /data, parent: columns, weight: 33 }
-        - { name: Projects, url: /#projects, weight: 35 }
+        - { name: Projects, pageRef: /projects, weight: 35 }
         - { name: About, pageRef: /about, weight: 40 }
 
 markup:

@@ -1,9 +1,6 @@
 ---
 title: Columns
 description: Themed column series organized along the main work tracks.
-type: book
-cascade:
-  type: book
 ---
 
 A collection of columns I organize by theme — each follows one main thread, with articles forming a system.
