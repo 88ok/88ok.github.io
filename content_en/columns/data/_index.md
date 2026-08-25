@@ -1,5 +1,6 @@
 ---
 title: Data
+icon: fa-solid fa-database
 description: Data governance, encryption and security, sharding, messaging and stream processing.
 type: book
 url: /en/data/

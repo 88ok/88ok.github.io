@@ -1,5 +1,6 @@
 ---
 title: 投资顾问系统
+icon: fa-solid fa-chart-line
 description: 基于 AKShare + Supabase + All-Weather 策略的投资研究与组合管理原型。
 weight: 20
 ---

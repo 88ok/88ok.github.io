@@ -1,5 +1,6 @@
 ---
 title: 银行业务专栏
+icon: fa-solid fa-landmark
 description: 支付清算、计息与限额、账户/卡、反洗钱（AML）/KYC/CRS 等银行核心业务梳理。
 type: book
 url: /banking/

@@ -1,5 +1,6 @@
 ---
 title: PageFly
+icon: fa-solid fa-paper-plane
 description: AI 时代的页面托管，支持 HTML 与 Markdown，部署在 Cloudflare 免费层。
 weight: 10
 ---

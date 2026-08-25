@@ -1,5 +1,6 @@
 ---
 title: Architecture
+icon: fa-solid fa-compass-drafting
 description: Hands-on breakdowns of ECIF, core banking, distributed architecture, and DDD.
 type: book
 url: /en/architecture/

@@ -1,5 +1,6 @@
 ---
 title: 架构专栏
+icon: fa-solid fa-compass-drafting
 description: 客户信息系统、核心系统、分布式架构与领域驱动设计（DDD）的实战拆解。
 type: book
 url: /architecture/

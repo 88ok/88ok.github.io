@@ -1,5 +1,6 @@
 ---
 title: Chinese AI Humanizer Skill
+icon: fa-solid fa-wand-magic-sparkles
 description: Removes 18 categories of AI tells so Chinese output reads more naturally.
 weight: 40
 ---

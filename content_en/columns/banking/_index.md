@@ -1,5 +1,6 @@
 ---
 title: Banking
+icon: fa-solid fa-landmark
 description: Payment clearing, interest and limits, accounts/cards, AML/KYC/CRS — core banking topics.
 type: book
 url: /en/banking/

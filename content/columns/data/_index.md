@@ -1,5 +1,6 @@
 ---
 title: 数据专栏
+icon: fa-solid fa-database
 description: 数据治理、加密与安全、分库分表、消息与流处理相关的技术与方法论。
 type: book
 url: /data/

@@ -1,5 +1,6 @@
 ---
 title: Cognition Matching / AI Cognitive Profile
+icon: fa-solid fa-brain
 description: A light-asset startup prototype that matches people with opportunities via cognitive profiling.
 weight: 30
 ---
