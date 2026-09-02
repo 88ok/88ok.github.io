@@ -68,7 +68,9 @@ recent:
   eyebrow: Recent
   title: Recent blog
   desc: Latest articles and notes — more on the blog page.
-  limit: 5
+  limit: 6
+  columns: 3
+  section: blog
   more_label: View all posts
   more_url: /blog
   empty: No posts yet — stay tuned.

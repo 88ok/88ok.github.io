@@ -1,24 +1,26 @@
-{{- /* 自定义落地页板块：动态列出「博客」栏目下最近的若干篇文章。
-       该 partial 由 data/home.yaml 中的 `type: recent` + `partial:` 字段挂载。
-       Oink v0.7.0 起改用 td-* 命名空间，复用主题原生的 landing/heading.html
-       与 landing/action.html，卡片结构与 theme 的 cards 板块保持一致。 */ -}}
+{{- /* 自定义落地页板块：首页「近期博客」。
+       直接复用主题原生的 shell/blog-card.html 与 .td-content-cards 网格，
+       因此卡片外观与 /blog 的 cards 模式完全一致（图片 / 日期 / 标签 / 摘要）。
+       可调项写在 data/home/<lang>.yaml 的 recent 下：
+         limit   —— 展示篇数，默认 6
+         columns —— 列数，默认 3（md 以下自动降为 1 列，与博客页一致）
+         section —— 取哪个栏目，默认 blog
+       Oink v1.0.0 已移除主题自带的 landing/sections/recent.html，本文件是站点自有资产。 */ -}}
 {{- $page := .page -}}
 {{- $data := .data -}}
 {{- $id := .id -}}
 <section id="{{ $id }}" class="td-landing-section td-landing-recent-section{{ with $data.class }} {{ . }}{{ end }}"{{ with $data.title }} aria-labelledby="{{ $id }}-title"{{ end }}>
   <div class="td-site-container">
     {{- partial "landing/heading.html" (dict "page" $page "data" $data "id" $id) -}}
-    {{- $limit := $data.limit | default 5 -}}
-    {{- $pages := where $page.Site.RegularPages "Section" "blog" -}}
+    {{- $limit := int ($data.limit | default 6) -}}
+    {{- $columns := int ($data.columns | default 3) -}}
+    {{- $section := $data.section | default "blog" -}}
+    {{- $pages := where $page.Site.RegularPages "Section" $section -}}
     {{- $pages = sort $pages "Date" "desc" | first $limit -}}
     {{- if $pages }}
-    <div class="td-landing-card-grid" style="--td-columns: 1">
+    <div class="td-content-cards td-blog-cards td-landing-recent-grid" style="--td-card-columns: {{ $columns }}">
       {{- range $pages }}
-      <article class="td-landing-card">
-        {{- with .Date }}<p class="td-landing-card__meta">{{ .Format "2006-01-02" }}</p>{{ end -}}
-        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-        {{- with .Summary }}<div class="td-landing-card__description">{{ . | plainify | truncate 120 }}</div>{{ end -}}
-      </article>
+      {{- partial "shell/blog-card.html" . -}}
       {{- end }}
     </div>
     {{- else }}

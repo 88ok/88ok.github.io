@@ -4,6 +4,9 @@
 /hugo_stats.json
 .hugo_build.lock
 
+# `hugo mod vendor` 生成的主题源码副本（依赖已在 go.mod 中锁定，不入仓库）
+/_vendor/
+
 # 项目内部数据（非站点内容）
 .workbuddy/
 

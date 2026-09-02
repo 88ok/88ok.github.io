@@ -68,7 +68,9 @@ recent:
   eyebrow: 近期
   title: 近期博客
   desc: 最新的文章与随笔，更多内容见博客页。
-  limit: 5
+  limit: 6
+  columns: 3
+  section: blog
   more_label: 查看全部博客
   more_url: /blog
   empty: 还没有文章，敬请期待。
