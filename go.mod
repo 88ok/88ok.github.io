@@ -1,5 +1,5 @@
 module github.com/88ok/88ok.github.io
 
-go 1.26.6
+go 1.27.0
 
-require github.com/pgsty/oink v0.7.0 // indirect
+require github.com/pgsty/oink v1.0.0 // indirect
