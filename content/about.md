@@ -1,6 +1,6 @@
 ---
-title: 关于（页面为 AI 生成，待修改）
-description: 王鹏，专注分布式核心系统与银行业务，探索 AI 在银行领域的落地。
+title: 关于
+description: 专注分布式核心系统与银行业务，探索 AI 在银行领域的落地。
 type: docs
 icon: fa-solid fa-user
 sidebar_enabled: false
@@ -15,6 +15,7 @@ cascade:
   comments: false
   feedback: false
 ---
+##（页面为 AI 生成，仅供参考）
 
 ## 简介
 
