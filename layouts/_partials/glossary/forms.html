@@ -1,0 +1,22 @@
+{{- /* 单个词条的全部「词面」（自动链接时用于匹配的文本形式）。
+       来源：标题 + front matter 的 term_aliases；去重后按字符长度降序，
+       保证「单元化部署」优先于「单元化」被匹配到（长词优先是自动链接的关键）。
+       用法：partial "glossary/forms.html" <termPage>  →  []string */ -}}
+{{- $page := . -}}
+{{- $raw := slice $page.Title -}}
+{{- with $page.Params.term_aliases -}}
+  {{- $raw = $raw | append . -}}
+{{- end -}}
+{{- $seen := dict -}}
+{{- $pairs := slice -}}
+{{- range $raw -}}
+  {{- $f := strings.TrimSpace (printf "%v" .) -}}
+  {{- if and $f (not (index $seen $f)) -}}
+    {{- $seen = merge $seen (dict $f true) -}}
+    {{- $pairs = $pairs | append (dict "text" $f "len" (len $f)) -}}
+  {{- end -}}
+{{- end -}}
+{{- $pairs = sort $pairs "len" "desc" -}}
+{{- $out := slice -}}
+{{- range $pairs }}{{ $out = $out | append .text }}{{ end -}}
+{{- return $out -}}

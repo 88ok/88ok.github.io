@@ -1,0 +1,14 @@
+{{- /* 词典词条集合：返回本语言下所有词条页，按标题排序。
+       来源是 Taxonomy plural = "glossaries"（hugo.yaml），而不是 section
+       `glossary`（那是索引页）。改用 site.Taxonomies.glossaries 比在 section
+       下枚举 .Pages 更明确，避免任何时候主区内容（如 /glossary/）被混入。 */ -}}
+{{- $terms := slice -}}
+{{- if and site.Taxonomies (index site.Taxonomies "glossaries") -}}
+  {{- $terms = index site.Taxonomies "glossaries" -}}
+{{- end -}}
+{{- if eq (len $terms) 0 -}}
+  {{- with site.GetPage "glossaries" -}}
+    {{- $terms = .Pages -}}
+  {{- end -}}
+{{- end -}}
+{{- return (sort $terms "Title" "asc") -}}

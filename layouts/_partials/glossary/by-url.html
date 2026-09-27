@@ -1,0 +1,13 @@
+{{- /* 词条页 URL -> page 的映射表（按语言缓存一次）。
+       key 同时登记「带语言前缀」与「不带语言前缀」两种写法，
+       这样文章里写 /glossary/ecif/ 或 /en/glossary/ecif/ 都能命中。 */ -}}
+{{- $terms := partialCached "glossary/terms.html" . .Language.Lang -}}
+{{- $byURL := dict -}}
+{{- range $t := $terms -}}
+  {{- $u := strings.TrimSuffix "/" $t.RelPermalink -}}
+  {{- $byURL = merge $byURL (dict $u $t) -}}
+  {{- with site.LanguagePrefix -}}
+    {{- $byURL = merge $byURL (dict (strings.TrimPrefix . $u) $t) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $byURL -}}

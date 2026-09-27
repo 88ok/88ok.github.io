@@ -1,0 +1,5 @@
+{{- /* 词典索引 JSON 的语言相关地址：中文 /glossary-index.json，英文 /en/glossary-index.json。
+       资源在 hugo.yaml 中绑到 home，404 页等非 home 模板不会走，但内层 partial 仍可能
+       被任意上下文调用；统一改用 site 取语言前缀，避免 .LanguagePrefix 不存在。 */ -}}
+{{- $prefix := site.LanguagePrefix | default "" -}}
+{{- return (printf "%s/glossary-index.json" $prefix) -}}

@@ -12,6 +12,20 @@ enableMissingTranslation: false
 taxonomies:
   tag: tags
   category: categories
+  # 关键词词典：术语页物理路径在 content/glossaries/<slug>/_index.md（避免与
+  # 词典索引页 content/glossary/_index.md 抢 URL），通过 url 重写到 /glossary/<slug>/。
+  # 正文中的关键词由 assets/js/glossary.js 自动链到对应词条页（词面见 term_aliases）。
+  glossary: glossaries
+
+# 词典索引 JSON：供前端自动链接使用，产出 /glossary-index.json（英文 /en/glossary-index.json）
+outputFormats:
+  GlossaryJSON:
+    baseName: glossary-index
+    isPlainText: true
+    mediaType: application/json
+    notAlternative: true
+outputs:
+  home: [html, rss, GlossaryJSON]
 
 # 语言：中文为默认（无前缀 /），英文挂在 /en/ 下，可在导航栏切换
 languages:
@@ -47,6 +61,7 @@ languages:
             - { name: 银行业务专栏, pageRef: /banking, weight: 2 }
             - { name: 数据专栏, pageRef: /data, weight: 3 }
             - { name: 专题列表, pageRef: /columns, weight: 4 }
+        - { name: 词典, pageRef: /glossary, weight: 33 }
         - { name: 项目, pageRef: /projects, weight: 35 }
         - { name: 关于, pageRef: /about, weight: 40 }
   en:
@@ -99,6 +114,7 @@ languages:
             - { name: Banking, pageRef: /banking, weight: 2 }
             - { name: Data, pageRef: /data, weight: 3 }
             - { name: All Topics, pageRef: /columns, weight: 4 }
+        - { name: Glossary, pageRef: /glossary, weight: 33 }
         - { name: Projects, pageRef: /projects, weight: 35 }
         - { name: About, pageRef: /about, weight: 40 }
 

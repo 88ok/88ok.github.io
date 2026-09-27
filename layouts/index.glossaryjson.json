@@ -1,0 +1,14 @@
+{{- /* 词典索引 JSON：/glossary-index.json（英文 /en/glossary-index.json）。
+       供 assets/js/glossary.js 在浏览器中把正文里的关键词自动链到词条页。
+       只输出链接所必需的最小字段：词面、标题、URL、一句话释义。 */ -}}
+{{- $terms := partialCached "glossary/terms.html" . .Language.Lang -}}
+{{- $out := slice -}}
+{{- range $t := $terms -}}
+  {{- $summary := $t.Params.summary | default ($t.Description | plainify | truncate 120) -}}
+  {{- $out = $out | append (dict
+      "title" $t.Title
+      "url" $t.RelPermalink
+      "summary" $summary
+      "forms" (partial "glossary/forms.html" $t)) -}}
+{{- end -}}
+{{- jsonify (dict "terms" $out) -}}

@@ -7,3 +7,22 @@
 {{ else -}}
   <script src="{{ $js.RelPermalink }}"></script>
 {{ end -}}
+
+{{/* 关键词词典：把正文中的词条自动链到 /glossary/<slug>/。
+     索引地址与当前页地址随语言变化，因此由服务端解析后注入配置，
+     脚本本身不写死任何域名或语言前缀。 */ -}}
+{{- $gIndex := (partial "glossary/index-url.html" .) -}}
+{{- if $gIndex -}}
+{{ $gjs := resources.Get "js/glossary.js" -}}
+{{ if hugo.IsProduction -}}
+  {{ $gjs = $gjs | js.Build (dict "targetPath" "js/glossary.js") | minify | fingerprint -}}
+{{ else -}}
+  {{ $gjs = $gjs | js.Build (dict "targetPath" "js/glossary.js") -}}
+{{ end -}}
+<script id="td-glossary-config" type="application/json">{{ jsonify (dict "index" $gIndex "self" .RelPermalink) }}</script>
+{{ if hugo.IsProduction -}}
+  <script src="{{ $gjs.RelPermalink }}" integrity="{{ $gjs.Data.Integrity }}" crossorigin="anonymous" defer></script>
+{{ else -}}
+  <script src="{{ $gjs.RelPermalink }}" defer></script>
+{{ end -}}
+{{- end -}}

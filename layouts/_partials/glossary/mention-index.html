@@ -1,0 +1,47 @@
+{{- /* 自建「提及索引」：词条 RelPermalink -> 正文中出现过该词任一词面的页面列表。
+
+       为什么不用主题自带的 backlinks：主题的 backlinks-index.html 只认 Markdown
+       源码里的 [x](y) 与 {{< ref >}}，而本词典的链接是运行时 JS 注入的，源码里
+       没有链接，主题索引扫不到。这里改成直接对「清洗后的原始 Markdown」做子串
+       匹配，因此只要文章正文出现了这个词面，就会被计入。
+
+       代价与约定：
+       - 每页只做 3 次正则（剔除围栏代码块与行内代码），然后对所有词条做子串
+         匹配，整体由 partialCached 按语言缓存一次。
+       - 词条自身页面不参与统计，避免「词条页提及自己」。
+       - 这是导航增强，不是链接检查器：误命中（如「数据」命中「数据库」）由
+         词面的选取来控制，长词优先见 glossary/forms.html。
+
+       用法：partialCached "glossary/mention-index.html" . .Language.Lang */ -}}
+{{- $terms := partialCached "glossary/terms.html" . .Language.Lang -}}
+{{- $entries := slice -}}
+{{- range $t := $terms -}}
+  {{- $entries = $entries | append (dict "key" $t.RelPermalink "forms" (partial "glossary/forms.html" $t)) -}}
+{{- end -}}
+
+{{- /* 先一次性清洗所有候选页的原文：后续只做子串匹配，不在循环里跑正则。 */ -}}
+{{- $docs := slice -}}
+{{- range $p := site.RegularPages -}}
+  {{- if eq $p.Section "glossary" }}{{ continue }}{{ end -}}
+  {{- if not $p.RawContent }}{{ continue }}{{ end -}}
+  {{- $raw := $p.RawContent -}}
+  {{- $raw = replaceRE "(?s)```+.*?```+" " " $raw -}}
+  {{- $raw = replaceRE "(?s)~~~+.*?~~~+" " " $raw -}}
+  {{- $raw = replaceRE "`[^`\n]+`" " " $raw -}}
+  {{- $docs = $docs | append (dict "page" $p "text" $raw) -}}
+{{- end -}}
+
+{{- $index := dict -}}
+{{- range $e := $entries -}}
+  {{- $hits := slice -}}
+  {{- range $d := $docs -}}
+    {{- range $f := $e.forms -}}
+      {{- if strings.Contains $d.text $f -}}
+        {{- $hits = $hits | append $d.page -}}
+        {{- break -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $index = merge $index (dict $e.key $hits) -}}
+{{- end -}}
+{{- return $index -}}

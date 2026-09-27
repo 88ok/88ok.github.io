@@ -1,0 +1,13 @@
+{{- /* 链接渲染钩子：主题未提供同名模板，因此这里是纯新增、不覆盖主题文件。
+       作用只有一个——当链接指向词典词条时，给它加上 .td-glossary-term，
+       让悬浮释义卡与虚线下划线生效；其余渲染与 Goldmark 默认保持一致。 */ -}}
+{{- $dest := .Destination -}}
+{{- $class := "" -}}
+{{- $parsed := urls.Parse $dest -}}
+{{- if not $parsed.Scheme -}}
+  {{- $key := strings.TrimSuffix "/" $parsed.Path -}}
+  {{- with index (partialCached "glossary/by-url.html" .Page .Page.Language.Lang) $key -}}
+    {{- $class = "td-glossary-term" -}}
+  {{- end -}}
+{{- end -}}
+<a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ with $class }} class="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>

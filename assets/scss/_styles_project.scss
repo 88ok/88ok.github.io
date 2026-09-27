@@ -17,3 +17,172 @@
     display: none;
   }
 }
+
+// ---------------------------------------------------------------------
+// 关键词词典（Glossary）
+// 正文中的关键词由 assets/js/glossary.js 自动包成 .td-glossary-term，
+// 词条页与词典索引页使用 .td-glossary* 系列 class。颜色沿用主题 CSS 变量，
+// 因此明暗色模式与分区主题色自动生效。
+// ---------------------------------------------------------------------
+
+// 正文里的词条链接：虚线下划线，区别于普通链接的实线，提示「这是术语」
+a.td-glossary-term,
+.td-glossary-term {
+  color: var(--bs-body-color);
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: help;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--bs-link-color);
+    text-decoration-style: solid;
+  }
+}
+
+// 悬浮释义卡
+.td-glossary-card {
+  position: fixed;
+  z-index: 1080;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 320px;
+  padding: 10px 12px;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 8px;
+  background: var(--bs-body-bg);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  font-size: 13px;
+  line-height: 1.6;
+
+  strong {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--bs-emphasis-color);
+  }
+
+  span {
+    color: var(--bs-secondary-color);
+  }
+
+  em {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--bs-tertiary-color);
+  }
+}
+
+// 词条页
+.td-glossary {
+  &__eyebrow {
+    margin: 0 0 4px;
+    font-size: 12px;
+    color: var(--bs-secondary-color);
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover { color: var(--bs-link-color); }
+    }
+  }
+
+  &__title {
+    margin: 0 0 8px;
+  }
+
+  &__summary {
+    margin: 0 0 12px;
+    padding-left: 10px;
+    border-left: 3px solid var(--td-accent, var(--bs-link-color));
+    color: var(--bs-emphasis-color);
+  }
+
+  &__aliases {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 12px;
+    font-size: 13px;
+  }
+
+  &__aliases-label {
+    color: var(--bs-secondary-color);
+
+    &::after { content: "："; }
+  }
+
+  &__alias {
+    padding: 1px 8px;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 999px;
+    background: var(--bs-tertiary-bg);
+    color: var(--bs-secondary-color);
+    font-size: 12px;
+  }
+
+  &__domain {
+    margin: 0 0 16px;
+  }
+
+  &__section {
+    margin-top: 32px;
+
+    h2 {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+
+  &__mentions,
+  &__related,
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--bs-border-color-translucent);
+
+      &:last-child { border-bottom: 0; }
+    }
+  }
+
+  &__mention-desc {
+    color: var(--bs-secondary-color);
+    font-size: 13px;
+  }
+
+  &__group-count {
+    margin-left: 6px;
+    color: var(--bs-tertiary-color);
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  &__count {
+    color: var(--bs-secondary-color);
+    font-size: 13px;
+  }
+
+  &__more {
+    margin-top: 32px;
+  }
+}
+
+// 词典索引页：词条列表按领域分组，两列排布（窄屏自动单列）
+.td-glossary-index {
+  .td-glossary__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0 24px;
+  }
+}

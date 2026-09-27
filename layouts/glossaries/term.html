@@ -1,0 +1,75 @@
+{{- /* 词典词条页：/glossary/<slug>/
+       内容 = 释义正文 + 别名词面 + 「提及本词的文章」+ 相关词条。
+
+       为什么放在 layouts/glossary/term.html 而不是 layouts/taxonomy/：
+       Hugo v0.146 起取消了「layouts/taxonomy 目录」这个特殊位置，layouts 下
+       除 _ 开头的目录都被当成「页面路径」。放在页面路径 glossary/ 下，
+       term.html 就只对本词典生效，不会影响 tags / categories。
+
+       「提及本词的文章」来自自建提及索引（glossary/mention-index.html），
+       它扫的是原始 Markdown 文本，所以正文里被 JS 自动链上的文章也能统计到，
+       这一点是主题自带的 backlinks 做不到的。 */ -}}
+{{ define "main" -}}
+{{- $mentions := index (partialCached "glossary/mention-index.html" . .Language.Lang) .RelPermalink -}}
+{{- $allTerms := partialCached "glossary/terms.html" . .Language.Lang -}}
+{{- $isZH := eq .Language.Lang "zh" -}}
+<div class="td-content td-glossary">
+  <p class="td-glossary__eyebrow">
+    {{- with site.GetPage "glossary" -}}
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{- end -}}
+  </p>
+  <h1 class="td-glossary__title">{{ .Title }}</h1>
+  {{- with .Params.summary }}
+  <p class="td-glossary__summary">{{ . }}</p>
+  {{- end }}
+  {{- with .Params.term_aliases }}
+  <p class="td-glossary__aliases">
+    <span class="td-glossary__aliases-label">{{ if $isZH }}又称{{ else }}Also called{{ end }}</span>
+    {{- range . }}<span class="td-glossary__alias">{{ . }}</span>{{ end }}
+  </p>
+  {{- end }}
+  {{- with .Params.domain }}
+  <p class="td-glossary__domain"><span class="td-badge td-badge--solid">{{ . }}</span></p>
+  {{- end }}
+
+  {{- with partial "content/render.html" . }}
+  <div class="td-glossary__body">{{ . }}</div>
+  {{- end }}
+
+  {{- with $mentions }}
+  <section class="td-glossary__section">
+    <h2>{{ if $isZH }}提及本词的文章{{ else }}Mentioned in{{ end }}</h2>
+    <ul class="td-glossary__mentions">
+      {{- range . }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{- with .Description }}<span class="td-glossary__mention-desc">{{ . | plainify | truncate 70 }}</span>{{ end }}
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+
+  {{- with .Params.related }}
+  <section class="td-glossary__section">
+    <h2>{{ if $isZH }}相关词条{{ else }}Related terms{{ end }}</h2>
+    <ul class="td-glossary__related">
+      {{- range . }}
+      {{- $slug := printf "/glossary/%s/" . -}}
+      {{- with site.GetPage $slug }}
+      <li><a class="td-glossary-term" href="{{ .RelPermalink }}">{{ .Title }}</a>{{ with .Params.summary }}<span class="td-glossary__mention-desc">{{ . | plainify | truncate 70 }}</span>{{ end }}</li>
+      {{- end }}
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+
+  {{- if gt (len $allTerms) 0 }}
+  <nav class="td-glossary__more">
+    <a href="{{ (site.GetPage "glossary").RelPermalink }}">{{ if $isZH }}浏览全部词条{{ else }}Browse all terms{{ end }} ({{ len $allTerms }})</a>
+  </nav>
+  {{- end }}
+</div>
+{{ partial "page-end.html" . }}
+{{ end -}}

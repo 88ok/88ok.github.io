@@ -1,0 +1,45 @@
+{{- /* 词典索引页：/glossary/
+       正文来自 content/glossary/_index.md，这里追加「按领域分组」的全量词条列表。
+
+       模板位置的依据（Hugo v0.146 新模板系统）：
+       layouts 下除 _ 开头的目录都被当作「页面路径」，文件名里的标识符可以是
+       page kind。所以 /glossary/（kind=section，页面路径 /glossary）对应
+       layouts/glossary/section.html；词条页 /glossaries/<slug>/（kind=term）
+       对应 layouts/glossaries/term.html（配合 url 重写到 /glossary/<slug>/）。
+       不要改回 layouts/taxonomy/ 或 layouts/section/，那两个目录在新版已无特殊含义。 */ -}}
+{{ define "main" -}}
+{{- $terms := partialCached "glossary/terms.html" . .Language.Lang -}}
+{{- $isZH := eq .Language.Lang "zh" -}}
+<div class="td-content td-glossary-index">
+  {{- with partial "content/render.html" . }}<div class="td-glossary__body">{{ . }}</div>{{ end }}
+  <p class="td-glossary__count">
+    {{ if $isZH }}共 {{ len $terms }} 个词条{{ else }}{{ len $terms }} terms{{ end }}
+  </p>
+
+  {{- $groups := dict -}}
+  {{- $order := slice -}}
+  {{- range $t := $terms -}}
+    {{- $d := $t.Params.domain | default (cond $isZH "其他" "Other") -}}
+    {{- if not (index $groups $d) -}}
+      {{- $groups = merge $groups (dict $d (slice)) -}}
+      {{- $order = $order | append $d -}}
+    {{- end -}}
+    {{- $groups = merge $groups (dict $d ((index $groups $d) | append $t)) -}}
+  {{- end -}}
+
+  {{- range $d := $order }}
+  <section class="td-glossary__section">
+    <h2>{{ $d }} <span class="td-glossary__group-count">{{ len (index $groups $d) }}</span></h2>
+    <ul class="td-glossary__list">
+      {{- range index $groups $d }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{- with .Params.summary }}<span class="td-glossary__mention-desc">{{ . }}</span>{{ end }}
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+</div>
+{{ partial "page-end.html" . }}
+{{ end -}}
