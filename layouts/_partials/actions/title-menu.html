@@ -1,29 +1,53 @@
 {{/* cSpell:ignore querify subdir */ -}}
 {{/* Page actions: a split button in the breadcrumb row. Overrides the theme
      partial to support custom links with an optional `action` field (e.g.
-     `action: print`) and configurable `target`/`rel` instead of always opening
-     in a new tab. */}}
+     `action: copy_link`, `action: print`) and configurable `target`/`rel`
+     instead of always opening in a new tab.
+
+     Kept in sync with Oink v1.1.0, which adds the `indexToggle` blog view
+     switch and renders action icons from actions/context.html (`$byID.*.icon`)
+     instead of the reduced shell/icon.html catalog. */}}
 
 {{ $p := . -}}
 {{ $feedURL := "" -}}
+{{ $indexToggle := false -}}
 {{ if reflect.IsMap . -}}
   {{ $p = .page -}}
   {{ $feedURL = .feedURL | default "" -}}
+  {{ $indexToggle = .indexToggle | default false -}}
 {{ end -}}
 {{ if $p.File -}}
 {{ if not (in (slice "term" "taxonomy") $p.Kind) -}}
-{{ $actionContext := partial "actions/context.html" $p -}}
+{{ $outputFormat := lower ($p.Store.Get "tdOutputFormat" | default "html") -}}
+{{ $actionContext := partialCached "actions/context.html" $p $p.Site.BaseURL $p.Site.Language.Lang $p.RelPermalink $outputFormat -}}
 {{ if $actionContext.pagePlacement -}}
 {{ $assistantLinks := $actionContext.assistantLinks -}}
 {{ $actionURLs := $actionContext.urls -}}
 {{ $markdownURL := $actionURLs.markdown -}}
 {{ $byID := $actionContext.byId -}}
 {{ $customLinks := slice -}}
-{{ with $p.Site.Params.ui.page_context_menu.links }}{{ $customLinks = . }}{{ end -}}
+{{ with $p.Site.Params.ui.page_context_menu -}}
+  {{ if reflect.IsMap . -}}
+    {{ with .links -}}
+      {{ if reflect.IsSlice . -}}{{ $customLinks = . }}{{ end -}}
+    {{ end -}}
+  {{ end -}}
+{{ end -}}
 <div class="td-page-actions d-print-none" data-td-page-actions data-td-page-context
   data-td-t-copied="{{ T "ui_copy_success" }}" data-td-t-copy-error="{{ T "ui_copy_error" }}">
   {{- $hasPrimary := or $feedURL $markdownURL }}
   <div class="td-page-actions__group">
+    {{- /* Blog list view switch (list / cards / table); hidden until the
+           runtime can honor it. Added in Oink v1.1.0. */ -}}
+    {{- if $indexToggle }}
+    <button type="button" class="td-page-actions__primary td-page-actions__form" hidden
+      data-td-blog-index-toggle
+      title="{{ T "ui_blog_index_toggle" }}" aria-label="{{ T "ui_blog_index_toggle" }}">
+      <span class="td-page-actions__icon td-page-actions__icon--form-list"><i class="fa-solid fa-list" aria-hidden="true"></i></span>
+      <span class="td-page-actions__icon td-page-actions__icon--form-cards"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i></span>
+      <span class="td-page-actions__icon td-page-actions__icon--form-table"><i class="fa-solid fa-table-list" aria-hidden="true"></i></span>
+    </button>
+    {{- end }}
     {{- if $feedURL }}
     <a class="td-page-actions__primary" href="{{ $feedURL | safeURL }}" title="RSS" aria-label="RSS">
       <span class="td-page-actions__icon"><i class="fa-solid fa-rss" aria-hidden="true"></i></span>
@@ -31,7 +55,7 @@
     {{- else }}{{ with $markdownURL }}
     <button type="button" class="td-page-actions__primary" data-td-action="copy_markdown" data-td-url="{{ . }}"
       title="{{ T "ui_copy_markdown" }}" aria-label="{{ T "ui_copy_markdown" }}">
-      <span class="td-page-actions__icon">{{ partialCached "shell/icon.html" "copy" "copy" }}</span>
+      <span class="td-page-actions__icon"><i class="td-shell-icon td-shell-icon--copy {{ $byID.copy_markdown.icon }}" aria-hidden="true"></i></span>
       <span class="td-page-actions__icon td-page-actions__icon--done">{{ partialCached "shell/icon.html" "check" "check" }}</span>
     </button>
     {{- end }}{{ end }}
@@ -48,7 +72,7 @@
          swaps the primary; the menu keeps the full copy action. */ -}}
     {{- with $markdownURL }}
     <li><button type="button" class="td-page-actions__item" data-td-action="copy_markdown" data-td-url="{{ . }}">
-      {{ partialCached "shell/icon.html" "copy" "copy" }}<span>{{ T "ui_copy_markdown" }}</span>
+      <i class="{{ $byID.copy_markdown.icon }}" aria-hidden="true"></i><span>{{ T "ui_copy_markdown" }}</span>
     </button></li>
     {{- end }}
     {{- if $assistantLinks }}
@@ -63,57 +87,60 @@
     {{- end }}
     {{- with $markdownURL }}
     <li><a class="td-page-actions__item" data-td-action="view_markdown" href="{{ . }}" target="_blank" rel="noopener">
-      {{ partialCached "shell/icon.html" "markdown" "markdown" }}<span>{{ T "post_view_markdown" }}</span>
+      <i class="{{ $byID.view_markdown.icon }}" aria-hidden="true"></i><span>{{ T "post_view_markdown" }}</span>
     </a></li>
     {{- end }}
     {{- with $actionURLs.history }}
     <li><a class="td-page-actions__item" data-td-action="view_history" href="{{ . }}" target="_blank" rel="noopener">
-      {{ partialCached "shell/icon.html" "history" "history" }}<span>{{ T "ui_view_history" }}</span>
+      <i class="{{ $byID.view_history.icon }}" aria-hidden="true"></i><span>{{ T "ui_view_history" }}</span>
     </a></li>
     {{- end }}
-    {{- /* Acting half: change or produce something. */ -}}
-    {{- if or $actionURLs.edit $actionURLs.createChild $actionURLs.createIssue $actionURLs.createProjectIssue $actionURLs.printSection $customLinks }}
+    {{- /* Acting half: change or produce something. The separator only appears
+           when there is a native action above it, so a menu that carries site
+           links alone does not open with a rule. */ -}}
+    {{- $hasNative := or $actionURLs.edit $actionURLs.createChild $actionURLs.createIssue $actionURLs.createProjectIssue $actionURLs.printSection -}}
+    {{- if $hasNative }}
     <li class="td-page-actions__separator" role="separator"></li>
     {{- end }}
     {{- with $actionURLs.edit }}
     <li><a class="td-page-actions__item" data-td-action="edit_page" href="{{ . }}" target="_blank" rel="noopener">
-      {{ partialCached "shell/icon.html" "pencil" "pencil" }}<span>{{ T "post_edit_this" }}</span>
+      <i class="{{ $byID.edit_page.icon }}" aria-hidden="true"></i><span>{{ T "post_edit_this" }}</span>
     </a></li>
     {{- end }}
     {{- with $actionURLs.createChild }}
     <li><a class="td-page-actions__item" data-td-action="create_child_page" href="{{ . | safeURL }}" target="_blank" rel="noopener">
-      {{ partialCached "shell/icon.html" "file-plus" "file-plus" }}<span>{{ T "post_create_child_page" }}</span>
+      <i class="{{ $byID.create_child_page.icon }}" aria-hidden="true"></i><span>{{ T "post_create_child_page" }}</span>
     </a></li>
     {{- end }}
     {{- with $actionURLs.createIssue }}
     <li><a class="td-page-actions__item" data-td-action="create_issue" href="{{ . | safeURL }}" target="_blank" rel="noopener">
-      {{ partialCached "shell/icon.html" "circle-help" "circle-help" }}<span>{{ T "post_create_issue" }}</span>
+      <i class="{{ $byID.create_issue.icon }}" aria-hidden="true"></i><span>{{ T "post_create_issue" }}</span>
     </a></li>
     {{- end }}
     {{- with $actionURLs.createProjectIssue }}
     <li><a class="td-page-actions__item" data-td-action="create_project_issue" href="{{ . }}" target="_blank" rel="noopener">
-      {{ partialCached "shell/icon.html" "circle-alert" "circle-alert" }}<span>{{ T "post_create_project_issue" }}</span>
+      <i class="{{ $byID.create_project_issue.icon }}" aria-hidden="true"></i><span>{{ T "post_create_project_issue" }}</span>
     </a></li>
     {{- end }}
     {{- with $actionURLs.printSection }}
     <li><a class="td-page-actions__item" data-td-action="print_section" href="{{ . }}">
-      {{ partialCached "shell/icon.html" "files" "files" }}<span>{{ T "print_entire_section" }}</span>
+      <i class="{{ $byID.print_section.icon }}" aria-hidden="true"></i><span>{{ T "print_entire_section" }}</span>
     </a></li>
     {{- end }}
-    {{- /* Site-specific custom actions, e.g. share/print/copy. */ -}}
+    {{- /* Site-specific custom actions, e.g. share/print/copy-link.
+           Two shapes: `action:` renders a built-in page action as a button
+           (no navigation), otherwise `url:` renders a link. `url:` may use
+           `{current_url}` / `{title}`, filled from the current page at build
+           time and rewritten to window.location by the share hook at runtime. */ -}}
     {{- with $customLinks }}
+    {{- if $hasNative }}<li class="td-page-actions__separator" role="separator"></li>{{ end }}
     {{- range . -}}
       {{- $hasAction := and (isset . "action") (ne .action "") -}}
       {{- if $hasAction }}
-        {{- if eq .action "copy_link" -}}
-    <li><button type="button" class="td-page-actions__item" data-td-action="copy_link">
-      {{ with .icon }}<i class="{{ . }}" aria-hidden="true"></i>{{ else }}{{ partialCached "shell/icon.html" "copy" "copy" }}{{ end }}<span>{{ .name }}</span>
-    </button></li>
-        {{- else -}}
+        {{- $icon := .icon | default (index $byID .action "icon") | default "fa-solid fa-bolt" -}}
     <li><button type="button" class="td-page-actions__item" data-td-action="{{ .action }}">
-      {{ with .icon }}<i class="{{ . }}" aria-hidden="true"></i>{{ else }}{{ partialCached "shell/icon.html" "bolt" "bolt" }}{{ end }}<span>{{ .name }}</span>
+      <i class="{{ $icon }}" aria-hidden="true"></i><span>{{ .name }}</span>
     </button></li>
-        {{- end -}}
       {{- else }}
         {{- $templateURL := .url -}}
         {{- $dynamicShare := strings.Contains $templateURL "{current_url}" -}}
