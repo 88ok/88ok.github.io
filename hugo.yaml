@@ -134,6 +134,9 @@ params:
     authors: 王鹏
     from_year: 2026
   ui:
+    # v1.2.0 起主题提供四套视觉风格：paper（默认）/ slate / ink / terminal。
+    # 显式声明，避免将来主题改默认值时站点外观意外变化。
+    preset: paper
     dark_mode:
       enable: true
       show_menu: true
