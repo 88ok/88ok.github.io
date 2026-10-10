@@ -137,6 +137,10 @@ params:
     # v1.2.0 起主题提供四套视觉风格：paper（默认）/ slate / ink / terminal。
     # 显式声明，避免将来主题改默认值时站点外观意外变化。
     preset: paper
+    # 是否开放「视觉风格」切换：true 开放稳定的 paper + slate 两套；
+    # 想一次性给读者全部四套（含实验性的 ink / terminal）就写成列表：
+    #   preset_menu: [paper, slate, ink, terminal]
+    preset_menu: true
     dark_mode:
       enable: true
       show_menu: true
