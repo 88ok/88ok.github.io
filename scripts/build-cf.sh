@@ -24,11 +24,12 @@ echo ">> Installing Hugo extended ${HUGO_VERSION}"
 curl -fsSL "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz" -o /tmp/hugo.tgz
 tar -C /tmp -xzf /tmp/hugo.tgz
 
-# Override baseURL with the CF Pages deployment URL so absolute links point
-# to the live CF site (not the hardcoded github.io in hugo.yaml).
-# CF_PAGES_URL is injected by Cloudflare only in the *build* command context;
-# guard with a default (root-relative) so the script never crashes under `set -u`.
-BASE_URL="${CF_PAGES_URL:-/}"
-BASE_URL="${BASE_URL%/}/"
-echo ">> Building with baseURL=${BASE_URL}"
-/tmp/hugo --baseURL "${BASE_URL}" --gc --minify
+# 构建：baseURL 用 hugo.yaml 默认值即可，构建后统一剥离 88ok.github.io 域名为根相对，
+# 使同一份产物既可用于 *.pages.dev，也可用于后续绑定的任意自定义域名，互不跳链。
+# （旧的 CF_PAGES_URL 覆盖方案仅对 pages.dev 生效，绑定自定义域名后仍会跳回 pages.dev，
+# 故改为与本地一致的「剥离域名」方案，见 scripts/strip-domain.sh。）
+echo ">> Building"
+/tmp/hugo --gc --minify
+
+echo ">> 剥离硬编码域名（与本地 build.sh 一致）"
+bash "$(dirname "$0")/strip-domain.sh" public

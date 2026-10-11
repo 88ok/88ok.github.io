@@ -1,0 +1,15 @@
+{{/* 覆盖主题 seo-alternates：canonical 与 hreflang 改用根相对路径，
+     避免把 github.io 烤进 <head>，多域名部署时每个域名各自为 canonical。 */ -}}
+{{- $targets := where (partialCached "language-targets.html" . .Site.BaseURL .RelPermalink .Site.Language.Lang) "translated" true -}}
+{{- $canonical := .RelPermalink -}}
+{{- if and (eq (.Store.Get "tdOutputFormat") "html") (.Store.Get "tdBlogPaginated") -}}
+  {{- $canonical = .Paginator.URL -}}
+  {{- if gt .Paginator.PageNumber 1 }}{{ $targets = slice }}{{ end -}}
+{{- end -}}
+<link rel="canonical" href="{{ $canonical }}">
+{{- range $targets }}
+<link rel="alternate" hreflang="{{ .code }}" href="{{ .url }}">
+{{- end -}}
+{{- range where $targets "active" false }}
+<meta property="og:locale:alternate" content="{{ .locale }}">
+{{- end -}}

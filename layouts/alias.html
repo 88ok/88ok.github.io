@@ -1,0 +1,14 @@
+{{/* 覆盖 Hugo 内建 alias 重定向桩：用根相对路径（.RelPermalink）做 0 秒跳转，
+     使构建产物与域名解耦——同一份 public/ 部署到 github.io / *.pages.dev / 任意自定义域名
+     都不会把访客弹回 88ok.github.io。站点部署在域名根路径（defaultContentLanguageInSubdir: false）。 */ -}}
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}">
+  <head>
+    <title>{{ .RelPermalink }}</title>
+    <link rel="canonical" href="{{ .RelPermalink }}">
+    <meta http-equiv="refresh" content="0; url={{ .RelPermalink }}">
+  </head>
+  <body>
+    <p>Redirecting to <a href="{{ .RelPermalink }}">{{ .RelPermalink }}</a>...</p>
+  </body>
+</html>

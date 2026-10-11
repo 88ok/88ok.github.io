@@ -1,5 +1,12 @@
 title: 追风笔记
 baseURL: https://88ok.github.io/
+# 多域名部署策略（详见 scripts/build.sh 与仓库根 OINK升级指南.md）：
+# 1) Hugo 仍用 baseURL 生成绝对地址；alias 重定向桩、canonical/hreflang 由站点级覆盖
+#    （layouts/alias.html、layouts/_partials/seo-alternates.html）改为根相对；
+# 2) 构建后由 scripts/build.sh 把产物中残留的 88ok.github.io 域名统一剥离为根相对路径，
+#    使同一份 public/ 可原样部署到 github.io / *.pages.dev / 任意自定义域名，互不跳链。
+# 切勿改用 relativeURLs: true —— 它无法改写主题用 .Permalink 生成的标签/栏目链接，
+# 且会把导航变成脆弱的页相对路径；统一用「剥离域名」方案更可靠、对主题升级零耦合。
 defaultContentLanguage: zh
 # 中文在根路径 /，英文挂在 /en/ 下（默认语言不入子目录）。
 # 换域名部署时，用 `hugo --baseURL https://你的域名/` 覆盖即可，

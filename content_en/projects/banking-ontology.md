@@ -2,7 +2,7 @@
 title: Banking Ontology
 icon: fa-solid fa-project-diagram
 description: Structuring a bank's organization, products, business, and data assets into a reusable knowledge system.
-manual_link: https://88ok.github.io/
+manual_link: /en/projects/banking-ontology
 weight: 50
 ---
 
