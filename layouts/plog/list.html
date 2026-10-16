@@ -1,15 +1,16 @@
 {{ define "main" -}}
-
-<div class="td-content">
-  {{ partial "page-title.html" . }}
-  {{- with partial "content/render.html" . }}{{ . }}{{ end }}
+<div class="td-content td-plog-index">
+  <header class="td-plog-head">
+    <h1>{{ .Title }}</h1>
+    {{- with .Description }}<p class="td-plog-desc">{{ . }}</p>{{ end }}
+  </header>
+  {{- $pages := .RegularPages.ByDate.Reverse -}}
+  {{- with $pages }}
+  <div class="td-plog-grid">
+    {{- range . }}{{ partial "plog/card.html" . }}{{ end }}
+  </div>
+  {{- else }}
+  <p>还没有图片博客。在 <code>content/plog/&lt;名字&gt;/</code> 下新建 index.md 和图片，写下第一篇吧。</p>
+  {{- end }}
 </div>
-{{- $pages := .RegularPages.ByDate.Reverse -}}
-{{- with $pages }}
-<div class="td-content-cards td-blog-cards" style="--td-card-columns: 3">
-  {{- range . }}{{ partial "plog/card.html" . }}{{ end }}
-</div>
-{{- else }}
-<p>还没有图片博客。在 <code>content/plog/</code> 下新建一个 .md 文件，写下第一篇吧。</p>
-{{- end }}
 {{ end }}

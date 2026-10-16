@@ -1,9 +1,13 @@
 {{ define "main" -}}
 <div class="td-content td-plog">
-  {{ partial "page-title.html" . }}
-  {{- partial "plog/entry-meta.html" . }}
-  {{- with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
-  {{- partial "content/render.html" . }}
+  <header class="td-plog-head">
+    <h1>{{ .Title }}</h1>
+    {{- partial "plog/entry-meta.html" . }}
+    {{- with .Params.description }}<p class="td-plog-desc">{{ . }}</p>{{ end }}
+  </header>
+  <div class="td-plog-gallery">
+    {{- partial "content/render.html" . }}
+  </div>
   {{- partial "page-end.html" . }}
 </div>
 {{ end }}

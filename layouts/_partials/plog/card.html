@@ -1,15 +1,14 @@
 {{- /* 图片博客列表卡片：主题 shell/blog-card.html 的 plog 变体。
-       差异只有一处——元信息行在日期之后追加「拍摄地点」（.Params.location）。
-       封面仍走主题 featured-image-resolve.html（读 front matter images 数组，
-       或页面资源里的 featured / cover 通配文件）；整卡经 stretched link 可点。
-       网格与卡片外观沿用主题 .td-content-cards / .td-blog-cards /
-       .td-content-card，主题升级零耦合。 */ -}}
-{{- $summary := .Description | default .Params.summary | plainify | htmlUnescape | truncate 120 -}}
+       差异：① 封面保持原始比例（不裁 16:9），配合列表页多列瀑布流；
+       ② 元信息行在日期之后追加「拍摄地点」（.Params.location）；
+       ③ 不展示摘要——照片为主，文字从简。
+       卡片外观、悬停与整卡可点（stretched link）仍来自主题
+       .td-content-card / .td-content-card__title，主题升级零耦合。 */ -}}
 {{- $found := partialCached "featured-image-resolve.html" . .RelPermalink -}}
 <article class="td-content-card td-blog-card td-plog-card">
   {{- with $found.resource }}
   {{- if reflect.IsImageResourceProcessable . }}
-  {{- $image := .Fill "640x360 Center" }}
+  {{- $image := .Resize "640x" }}
   <img class="td-blog-card__image" src="{{ $image.RelPermalink }}" alt="" width="{{ $image.Width }}" height="{{ $image.Height }}" loading="lazy">
   {{- else }}
   <img class="td-blog-card__image" src="{{ .RelPermalink }}" alt="" loading="lazy">
@@ -33,9 +32,6 @@
       <span class="td-blog-meta__sep" aria-hidden="true">&middot;</span> <span class="td-plog-card__location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>{{ . }}</span>
       {{- end }}
     </small></p>
-    {{- end }}
-    {{- with $summary }}
-    <p class="td-content-card__description td-blog-card__summary">{{ . }}</p>
     {{- end }}
   </div>
 </article>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cfe3ec"/>
+      <stop offset="0.6" stop-color="#eadfcb"/>
+      <stop offset="1" stop-color="#f4ead6"/>
+    </linearGradient>
+    <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b7cfd2"/>
+      <stop offset="1" stop-color="#8fb0b6"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1200" fill="url(#sky)"/>
+  <circle cx="600" cy="230" r="58" fill="#fbf3dd"/>
+  <circle cx="600" cy="230" r="96" fill="#fbf3dd" opacity="0.3"/>
+  <!-- 远山 -->
+  <path d="M0 560 L180 380 L330 540 L520 330 L700 560 L900 420 L900 700 L0 700 Z" fill="#a9c3cb" opacity="0.65"/>
+  <path d="M0 640 L230 470 L430 640 L620 450 L900 640 L900 760 L0 760 Z" fill="#7d9fab" opacity="0.75"/>
+  <!-- 近山 -->
+  <path d="M0 740 L280 560 L520 740 L760 590 L900 700 L900 820 L0 820 Z" fill="#52798a"/>
+  <path d="M280 560 L340 625 L220 625 Z" fill="#eef4f5" opacity="0.85"/>
+  <path d="M760 590 L815 648 L705 648 Z" fill="#eef4f5" opacity="0.8"/>
+  <!-- 湖面 -->
+  <rect x="0" y="820" width="900" height="380" fill="url(#lake)"/>
+  <g opacity="0.5">
+    <path d="M0 820 L280 820 L520 820 L760 820 L900 820 L900 860 L0 860 Z" fill="#52798a" opacity="0.4"/>
+  </g>
+  <g fill="#ffffff" opacity="0.3">
+    <rect x="120" y="900" width="300" height="6" rx="3"/>
+    <rect x="430" y="970" width="330" height="6" rx="3"/>
+    <rect x="200" y="1050" width="420" height="6" rx="3"/>
+    <rect x="520" y="1130" width="260" height="6" rx="3"/>
+  </g>
+  <!-- 晨雾 -->
+  <rect x="0" y="700" width="900" height="90" fill="#f4ead6" opacity="0.45"/>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1280" viewBox="0 0 960 1280">
+  <defs>
+    <linearGradient id="night" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a1230"/>
+      <stop offset="0.55" stop-color="#1c2b57"/>
+      <stop offset="1" stop-color="#3a4a7d"/>
+    </linearGradient>
+    <radialGradient id="milky" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#cfd8f2" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#cfd8f2" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="960" height="1280" fill="url(#night)"/>
+  <!-- 银河 -->
+  <ellipse cx="480" cy="430" rx="640" ry="150" fill="url(#milky)" transform="rotate(-24 480 430)"/>
+  <!-- 星星 -->
+  <g fill="#ffffff">
+    <circle cx="90" cy="120" r="2.4" opacity="0.9"/><circle cx="180" cy="70" r="1.6" opacity="0.7"/>
+    <circle cx="300" cy="150" r="2" opacity="0.85"/><circle cx="420" cy="90" r="2.8" opacity="0.95"/>
+    <circle cx="540" cy="160" r="1.5" opacity="0.6"/><circle cx="660" cy="80" r="2.2" opacity="0.8"/>
+    <circle cx="780" cy="140" r="1.8" opacity="0.75"/><circle cx="880" cy="60" r="2.5" opacity="0.9"/>
+    <circle cx="140" cy="260" r="2" opacity="0.8"/><circle cx="260" cy="310" r="1.5" opacity="0.65"/>
+    <circle cx="380" cy="250" r="2.6" opacity="0.9"/><circle cx="500" cy="330" r="1.8" opacity="0.7"/>
+    <circle cx="620" cy="270" r="2.2" opacity="0.85"/><circle cx="740" cy="330" r="1.6" opacity="0.7"/>
+    <circle cx="850" cy="250" r="2.4" opacity="0.9"/><circle cx="70" cy="420" r="1.8" opacity="0.75"/>
+    <circle cx="210" cy="470" r="2.2" opacity="0.8"/><circle cx="350" cy="430" r="1.5" opacity="0.6"/>
+    <circle cx="600" cy="450" r="2" opacity="0.8"/><circle cx="700" cy="500" r="2.6" opacity="0.9"/>
+    <circle cx="820" cy="440" r="1.7" opacity="0.7"/><circle cx="910" cy="520" r="2.1" opacity="0.8"/>
+    <circle cx="120" cy="600" r="1.9" opacity="0.75"/><circle cx="300" cy="650" r="1.5" opacity="0.6"/>
+    <circle cx="480" cy="610" r="2.3" opacity="0.85"/><circle cx="640" cy="680" r="1.7" opacity="0.7"/>
+    <circle cx="860" cy="640" r="2" opacity="0.8"/><circle cx="180" cy="760" r="1.6" opacity="0.65"/>
+    <circle cx="400" cy="800" r="2.1" opacity="0.8"/><circle cx="720" cy="790" r="1.8" opacity="0.7"/>
+    <circle cx="60" cy="200" r="1.4" opacity="0.6"/><circle cx="950" cy="330" r="1.5" opacity="0.65"/>
+    <circle cx="520" cy="530" r="1.4" opacity="0.6"/><circle cx="260" cy="560" r="1.7" opacity="0.7"/>
+  </g>
+  <!-- 月亮 -->
+  <circle cx="700" cy="220" r="88" fill="#f6f2d3"/>
+  <circle cx="700" cy="220" r="120" fill="#f6f2d3" opacity="0.18"/>
+  <g fill="#d9d3b4" opacity="0.55">
+    <circle cx="672" cy="196" r="16"/><circle cx="726" cy="240" r="11"/>
+    <circle cx="690" cy="258" r="8"/><circle cx="716" cy="188" r="7"/>
+  </g>
+  <!-- 山脊 -->
+  <path d="M0 900 L190 700 L360 860 L540 690 L730 880 L960 720 L960 1080 L0 1080 Z" fill="#0d1428"/>
+  <path d="M0 1010 L240 880 L480 1030 L720 890 L960 1040 L960 1280 L0 1280 Z" fill="#080e1e"/>
+  <!-- 湖面倒影 -->
+  <rect x="0" y="1080" width="960" height="200" fill="#101a38"/>
+  <rect x="660" y="1080" width="80" height="200" fill="#f6f2d3" opacity="0.12"/>
+  <g fill="#f6f2d3" opacity="0.1">
+    <rect x="675" y="1100" width="50" height="4" rx="2"/>
+    <rect x="665" y="1140" width="70" height="4" rx="2"/>
+    <rect x="680" y="1185" width="44" height="4" rx="2"/>
+    <rect x="660" y="1230" width="80" height="4" rx="2"/>
+  </g>
+</svg>

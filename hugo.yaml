@@ -170,13 +170,18 @@ params:
 
 # ── 内容扩展约定（新增即自动套用当前样式，无需改代码）──────────────
 # · 新增文章：在任意专栏/博客目录下加 .md 文件即可，标签/分类见 front matter。
-# · 图片博客（/plog，不进菜单）：在 content/plog/ 下加 .md 文件（可用
-#   `hugo new content plog/<名字>.md` 生成骨架），front matter 写
-#   title / date / location（拍摄地点）/ description / images（封面图数组），
-#   正文插图写法（属性行单独一行）：
-#       ![图片描述](/images/plog/<目录>/xx.jpg)
+# · 图片博客（/plog，不进菜单，纯照片呈现）：每篇一个文件夹（页面资源包），
+#   在 content/plog/<名字>/ 下放 index.md 与图片（可用
+#   `hugo new content plog/<名字>/index.md` 生成骨架），front matter 写
+#   title / date / location（拍摄地点）/ description / images（封面图数组，
+#   写同目录文件名）；正文只放图片，用文件名直接引用，插图写法
+#   （每个图片单独一段，属性行单独一行）：
+#       ![图片描述](01.jpg)
 #       {caption="图片说明"}
-#   一个 md 可含多张；布局在 layouts/plog/，样式在 _styles_project.scss。
+#   带 caption 渲染为「图+图注」，不写就只有图（块级图片均可点击放大）；
+#   一个文件可含多张，列表页与详情页均为多列瀑布流、保持原始宽高比
+#   （图片与 md 同目录，Hugo 自动注入宽高，加载不跳动）；
+#   布局在 layouts/plog/，样式在 _styles_project.scss。
 # · 新增专栏：建 content/<新专栏>/_index.md，并写：
 #       type: book
 #       cascade:

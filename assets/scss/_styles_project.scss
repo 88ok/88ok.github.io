@@ -19,42 +19,40 @@
 }
 
 // ---------------------------------------------------------------------
-// 图片博客（/plog，不进菜单）
-// 列表页复用主题 .td-content-cards / .td-blog-cards 网格，卡片在主题
-// .td-content-card 基础上追加地点信息；详情页的图片走主题 render-image
-// 钩子（块级图片 img.td-image 可点击放大，带 {caption="..."} 的渲染为
-// figure.td-figure + figcaption），这里只做间距、圆角与阴影微调。
+// 图片博客（/plog，不进菜单）——纯照片呈现
+// 列表页与详情页都是「照片墙」：CSS 多列瀑布流，图片保持原始宽高比，
+// 不裁切、不限制阅读宽度。列表卡片外观与整卡可点（stretched link）来自
+// 主题 .td-content-card；详情页图片走主题 render-image 钩子（带
+// {caption="…"} 渲染 figure + figcaption，块级图片均可点击放大）。
 // 颜色全部沿用主题 CSS 变量，明暗色与四套视觉风格自动生效。
 // ---------------------------------------------------------------------
 
-// 列表卡片：整卡可点（stretched link），底部带拍摄地点
-.td-plog-card {
-  position: relative;
+// 页头（列表与详情共用）：紧凑标题 + 一行描述，不做文章式大标题
+.td-plog-head {
+  margin-block-end: 1.25rem;
 
-  .td-plog-card__link::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-  }
-
-  &__location {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    color: var(--bs-secondary-color);
-    font-size: 13px;
-
-    i { font-size: 11px; }
+  h1 {
+    margin: 0 0 0.35rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
   }
 }
 
-// 详情页头部元信息行：日期 · 地点
+.td-plog-desc {
+  margin: 0;
+  color: var(--bs-secondary-color);
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+
+// 详情页头部元信息行：日期 · 地点 · 标签
 .td-plog-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 6px 14px;
-  margin: 0 0 20px;
+  margin: 0 0 0.5rem;
   color: var(--bs-secondary-color);
   font-size: 13px;
 
@@ -68,35 +66,93 @@
     i { font-size: 11px; }
   }
 
-  .td-blog-meta__terms {
+  // 标签条（主题 taxonomy-terms-article-wrapper 输出）去掉自带外边距
+  .td-taxonomy-terms-article {
     margin: 0;
   }
 }
 
-// 详情页图片：块级图片居中、圆角、轻阴影；figure  caption 居中弱化
-.td-plog {
-  img.td-image {
+// 照片墙：CSS 多列瀑布流（列内自上而下，列数随宽度收敛）
+.td-plog-gallery,
+.td-plog-grid {
+  columns: 3;
+  column-gap: 1rem;
+
+  @media (max-width: 991.98px) { columns: 2; }
+  @media (max-width: 575.98px) { columns: 1; }
+}
+
+// 详情页照片墙：图片通宽、原始比例，图注居中弱化
+.td-plog-gallery {
+  > figure,
+  > p,
+  > img {
+    break-inside: avoid;
+    margin: 0 0 1rem;
+  }
+
+  img {
     display: block;
-    margin: 24px auto;
+    width: 100%;
+    height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     cursor: zoom-in;
   }
 
-  figure.td-figure {
-    margin: 24px auto;
+  figcaption {
+    margin-block-start: 0.5rem;
+    color: var(--bs-secondary-color);
+    font-size: 12.5px;
+    line-height: 1.6;
     text-align: center;
+  }
 
-    img {
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
+  // 正文里偶发的文字（不推荐）：小号弱化，不抢照片
+  > p {
+    color: var(--bs-secondary-color);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+}
 
-    figcaption {
-      margin-top: 8px;
-      color: var(--bs-secondary-color);
-      font-size: 13px;
-      text-align: center;
-    }
+// 列表页照片墙：一个条目一张卡
+.td-plog-grid {
+  margin-block: 1.25rem 0;
+
+  > .td-plog-card {
+    break-inside: avoid;
+    margin-block-end: 1rem;
+  }
+}
+
+// 列表卡片：整卡可点（stretched link），底部带拍摄地点
+.td-plog-card {
+  position: relative;
+
+  .td-plog-card__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  // 封面保持原始比例：主题 .td-blog-card__image 默认裁成 16:9
+  .td-blog-card__image {
+    aspect-ratio: auto;
+  }
+
+  // 照片为主，文字从简：压缩卡片正文
+  .td-content-card__body {
+    padding: 0.7rem 0.85rem 0.8rem;
+  }
+
+  &__location {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--bs-secondary-color);
+    font-size: 13px;
+
+    i { font-size: 11px; }
   }
 }
