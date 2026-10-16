@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" role="img" aria-label="晨雾山谷">
+  <defs>
+    <linearGradient id="plogSky2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cffafe"/>
+      <stop offset="0.55" stop-color="#a5f3fc"/>
+      <stop offset="1" stop-color="#ecfeff"/>
+    </linearGradient>
+    <linearGradient id="plogFar2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#99f6e4"/>
+      <stop offset="1" stop-color="#ccfbf1"/>
+    </linearGradient>
+    <linearGradient id="plogNear2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d9488"/>
+      <stop offset="1" stop-color="#115e59"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="720" fill="url(#plogSky2)"/>
+  <circle cx="800" cy="110" r="40" fill="#fef9c3"/>
+  <path d="M0 470 L200 250 L380 470 Z" fill="url(#plogFar2)"/>
+  <path d="M300 470 L520 210 L740 470 Z" fill="url(#plogFar2)"/>
+  <path d="M640 470 L830 300 L960 470 Z" fill="url(#plogFar2)"/>
+  <path d="M0 560 L260 380 L520 560 Z" fill="url(#plogNear2)" opacity="0.9"/>
+  <path d="M430 560 L700 340 L960 560 Z" fill="url(#plogNear2)"/>
+  <rect y="560" width="960" height="160" fill="#0f766e"/>
+  <rect y="560" width="960" height="10" fill="#5eead4" opacity="0.7"/>
+  <path d="M0 600 Q240 585 480 600 T960 600" stroke="#99f6e4" stroke-width="4" fill="none" opacity="0.5"/>
+  <path d="M0 648 Q240 633 480 648 T960 648" stroke="#99f6e4" stroke-width="4" fill="none" opacity="0.35"/>
+</svg>

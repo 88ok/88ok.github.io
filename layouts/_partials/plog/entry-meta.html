@@ -1,0 +1,11 @@
+{{- /* 图片博客条目头部元信息：发布日期 · 拍摄地点 · 标签。
+       标签沿用主题 taxonomy-terms-article-wrapper.html（无标签时输出为空）。 */ -}}
+<div class="td-plog-meta">
+  {{- if not .Date.IsZero -}}
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (.Param "time_format_blog") }}</time>
+  {{- end }}
+  {{- with .Params.location -}}
+  <span class="td-plog-meta__location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>{{ . }}</span>
+  {{- end }}
+  {{- partial "taxonomy-terms-article-wrapper.html" . -}}
+</div>

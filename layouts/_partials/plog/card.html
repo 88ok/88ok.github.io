@@ -1,0 +1,41 @@
+{{- /* 图片博客列表卡片：主题 shell/blog-card.html 的 plog 变体。
+       差异只有一处——元信息行在日期之后追加「拍摄地点」（.Params.location）。
+       封面仍走主题 featured-image-resolve.html（读 front matter images 数组，
+       或页面资源里的 featured / cover 通配文件）；整卡经 stretched link 可点。
+       网格与卡片外观沿用主题 .td-content-cards / .td-blog-cards /
+       .td-content-card，主题升级零耦合。 */ -}}
+{{- $summary := .Description | default .Params.summary | plainify | htmlUnescape | truncate 120 -}}
+{{- $found := partialCached "featured-image-resolve.html" . .RelPermalink -}}
+<article class="td-content-card td-blog-card td-plog-card">
+  {{- with $found.resource }}
+  {{- if reflect.IsImageResourceProcessable . }}
+  {{- $image := .Fill "640x360 Center" }}
+  <img class="td-blog-card__image" src="{{ $image.RelPermalink }}" alt="" width="{{ $image.Width }}" height="{{ $image.Height }}" loading="lazy">
+  {{- else }}
+  <img class="td-blog-card__image" src="{{ .RelPermalink }}" alt="" loading="lazy">
+  {{- end }}
+  {{- else }}
+  {{- with $found.href }}
+  <img class="td-blog-card__image" src="{{ . }}" alt="" loading="lazy">
+  {{- end }}
+  {{- end }}
+  <div class="td-content-card__body">
+    <h3 class="h5 td-content-card__head td-blog-card__heading">
+      <a class="td-content-card__title td-plog-card__link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </h3>
+    {{- $hasMeta := or (not .Date.IsZero) .Params.location -}}
+    {{- if $hasMeta }}
+    <p class="td-blog-meta"><small class="text-body-secondary">
+      {{- if not .Date.IsZero -}}
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (.Param "time_format_blog") }}</time>
+      {{- end }}
+      {{- with .Params.location }}
+      <span class="td-blog-meta__sep" aria-hidden="true">&middot;</span> <span class="td-plog-card__location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>{{ . }}</span>
+      {{- end }}
+    </small></p>
+    {{- end }}
+    {{- with $summary }}
+    <p class="td-content-card__description td-blog-card__summary">{{ . }}</p>
+    {{- end }}
+  </div>
+</article>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" role="img" aria-label="林间小路">
+  <defs>
+    <linearGradient id="plogAir4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fefce8"/>
+      <stop offset="1" stop-color="#ecfccb"/>
+    </linearGradient>
+    <linearGradient id="plogPath4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d6d3d1"/>
+      <stop offset="1" stop-color="#a8a29e"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="720" fill="url(#plogAir4)"/>
+  <g fill="#365314" opacity="0.9">
+    <rect x="60" y="0" width="54" height="560"/>
+    <rect x="150" y="0" width="40" height="520"/>
+    <rect x="770" y="0" width="54" height="560"/>
+    <rect x="860" y="0" width="40" height="520"/>
+  </g>
+  <g fill="#3f6212" opacity="0.75">
+    <ellipse cx="87" cy="120" rx="150" ry="90"/>
+    <ellipse cx="170" cy="220" rx="130" ry="80"/>
+    <ellipse cx="797" cy="120" rx="150" ry="90"/>
+    <ellipse cx="870" cy="230" rx="130" ry="80"/>
+  </g>
+  <path d="M400 720 L470 300 L530 300 L600 720 Z" fill="url(#plogPath4)"/>
+  <path d="M470 300 L530 300 L520 340 L480 340 Z" fill="#78716c"/>
+  <g stroke="#a3e635" stroke-width="6" stroke-linecap="round" opacity="0.8">
+    <path d="M420 640 L410 560"/><path d="M560 620 L575 545"/>
+    <path d="M450 560 L435 490"/><path d="M540 540 L560 470"/>
+  </g>
+  <g fill="#fde047" opacity="0.7">
+    <circle cx="350" cy="200" r="8"/><circle cx="420" cy="140" r="6"/>
+    <circle cx="620" cy="180" r="7"/><circle cx="700" cy="120" r="5"/>
+    <circle cx="500" cy="90" r="6"/>
+  </g>
+</svg>

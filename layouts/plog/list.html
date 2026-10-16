@@ -1,0 +1,15 @@
+{{ define "main" -}}
+
+<div class="td-content">
+  {{ partial "page-title.html" . }}
+  {{- with partial "content/render.html" . }}{{ . }}{{ end }}
+</div>
+{{- $pages := .RegularPages.ByDate.Reverse -}}
+{{- with $pages }}
+<div class="td-content-cards td-blog-cards" style="--td-card-columns: 3">
+  {{- range . }}{{ partial "plog/card.html" . }}{{ end }}
+</div>
+{{- else }}
+<p>还没有图片博客。在 <code>content/plog/</code> 下新建一个 .md 文件，写下第一篇吧。</p>
+{{- end }}
+{{ end }}

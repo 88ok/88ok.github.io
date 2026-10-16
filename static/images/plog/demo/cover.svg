@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-label="山湖日落">
+  <defs>
+    <linearGradient id="plogSky1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#312e81"/>
+      <stop offset="0.45" stop-color="#9a3412"/>
+      <stop offset="0.78" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#fde68a"/>
+    </linearGradient>
+    <linearGradient id="plogLake1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbbf24"/>
+      <stop offset="0.35" stop-color="#b45309"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="400" fill="url(#plogSky1)"/>
+  <circle cx="620" cy="330" r="44" fill="#fffbeb"/>
+  <circle cx="620" cy="330" r="70" fill="#fef3c7" opacity="0.35"/>
+  <path d="M0 400 L170 235 L330 400 Z" fill="#4c1d95"/>
+  <path d="M230 400 L440 195 L650 400 Z" fill="#5b21b6"/>
+  <path d="M560 400 L770 255 L960 400 Z" fill="#4c1d95"/>
+  <path d="M380 400 L470 290 L560 400 Z" fill="#6d28d9" opacity="0.85"/>
+  <rect y="400" width="960" height="240" fill="url(#plogLake1)"/>
+  <ellipse cx="620" cy="428" rx="26" ry="5" fill="#fffbeb" opacity="0.75"/>
+  <ellipse cx="620" cy="452" rx="18" ry="4" fill="#fffbeb" opacity="0.5"/>
+  <ellipse cx="620" cy="478" rx="30" ry="4" fill="#fffbeb" opacity="0.3"/>
+  <path d="M0 520 h960 M0 556 h960 M0 596 h960" stroke="#e2e8f0" stroke-width="2" opacity="0.12"/>
+</svg>
