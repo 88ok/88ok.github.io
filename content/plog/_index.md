@@ -12,9 +12,11 @@ body_class: td-plog
 notoc: true
 # 右侧栏也关掉：照片页不需要目录/标签云/反向引用，整页只留照片
 toc_taxonomies: false
-# 照片墙点击放大：主题要求页面级 image_zoom 显式开启（站点默认关），
-# 且模板需置 Page.Store "hasImageZoom"（见 layouts/plog/list.html）
-image_zoom: true
+# 照片灯箱为自建（layouts/plog/list.html + _partials/plog/lightbox.html
+# + assets/js/plog-lightbox.js），不依赖主题 image-zoom。
+# 分页：照片多了按数量分页，目标每页张数（实际按每组平均张数换算成
+# 每页组数，各页张数≈该值）；不设置则默认 12。
+photos_per_page: 12
 comments: false
 share: [copy]
 feedback: false
@@ -29,7 +31,6 @@ build:
   render: always
 cascade:
   type: plog
-  image_zoom: true
   theme_color: '#0f766e'
   theme_color_dark: '#5eead4'
   sidebar_enabled: false

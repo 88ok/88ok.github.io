@@ -1,34 +1,19 @@
 {{- /* 单张照片卡（时光相册样式）。
-       入参：dict "page" 页面（提供资源与徽章文案） "photo" 一张照片
-       （map：src 必填，caption 可选）。
-       结构：圆角照片卡 = img + 左上角徽章 + 可选左下角图注；
-       data-td-image-zoom 指向原图，由主题 image-zoom JS 弹出大图。
-       位图生成 x900 缩略图（列宽约 1/3 屏，Retina 余量），SVG/GIF
-       不做处理直接用原图；无宽高属性时由 img 自身比例撑起。 */ -}}
-{{- $page := .page -}}
-{{- $photo := .photo -}}
-{{- $src := "" -}}
-{{- with index $photo "src" }}{{ $src = . | string }}{{ end -}}
-{{- if not $src }}{{ errorf "plog %s: photos 项缺少 src" $page.Path }}{{ end -}}
+       入参：dict "page" 组页 "photo" 照片 map（src 必填，caption 可选）
+             "badge" 徽章文案 "setIndex"/"photoIndex" 灯箱定位索引。
+       结构：圆角照片卡 = 可点按钮（img）+ 左上角徽章 + 可选左下角图注。
+       点击不再走主题 image-zoom，由自建灯箱接管：js/plog-lightbox.js
+       读卡片 data-plog-set / data-plog-photo，在所属组内弹出可左右切换
+       的大图查看器（骨架见 _partials/plog/lightbox.html）。 */ -}}
+{{- $r := partial "plog/photo-resolve.html" (dict "page" .page "photo" .photo) -}}
 {{- $caption := "" -}}
-{{- with index $photo "caption" }}{{ $caption = . | string }}{{ end -}}
-{{- $imgSrc := $src -}}
-{{- $fullSrc := $src -}}
-{{- $w := "" -}}
-{{- $h := "" -}}
-{{- with $page.Resources.Get $src -}}
-  {{- $fullSrc = .RelPermalink -}}
-  {{- if not (in (slice "svg" "gif") .MediaType.SubType) -}}
-    {{- $thumb := .Resize "x900" -}}
-    {{- $imgSrc = $thumb.RelPermalink -}}
-    {{- $w = $thumb.Width -}}
-    {{- $h = $thumb.Height -}}
-  {{- else -}}
-    {{- $imgSrc = .RelPermalink -}}
-  {{- end -}}
-{{- end -}}
-<figure class="td-plog-card">
-  <img src="{{ $imgSrc }}"{{ with $w }} width="{{ . }}" height="{{ $h }}"{{ end }} alt="{{ or $caption $src "照片" }}" loading="lazy" decoding="async" data-td-image-zoom="{{ $fullSrc }}">
+{{- with index .photo "caption" }}{{ $caption = . | string }}{{ end -}}
+{{- $si := 0 -}}{{- with .setIndex }}{{ $si = . }}{{ end -}}
+{{- $pi := 0 -}}{{- with .photoIndex }}{{ $pi = . }}{{ end -}}
+<figure class="td-plog-card" data-plog-set="{{ $si }}" data-plog-photo="{{ $pi }}">
+  <button type="button" class="td-plog-card__open" aria-label="查看照片{{ with $caption }}：{{ . }}{{ end }}">
+    <img src="{{ $r.thumb }}"{{ with $r.tw }} width="{{ . }}" height="{{ $r.th }}"{{ end }} alt="{{ or $caption $r.src "照片" }}" loading="lazy" decoding="async">
+  </button>
   <span class="td-plog-card__badge" aria-hidden="true">{{ .badge }}</span>
   {{- with $caption }}<figcaption class="td-plog-card__caption">{{ . }}</figcaption>{{ end }}
 </figure>

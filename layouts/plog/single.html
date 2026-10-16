@@ -5,7 +5,6 @@
 {{- $badge := .Title }}
 {{- with .Params.location }}{{ $badge = . }}{{ end }}
 <div class="td-content td-plog">
-  {{- .Store.Set "hasImageZoom" true }}
   <header class="td-plog-head">
     <h1>{{ .Title }}</h1>
     {{- partial "plog/entry-meta.html" . }}
