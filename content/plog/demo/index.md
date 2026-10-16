@@ -1,20 +1,17 @@
 ---
-title: 示例：一组照片长什么样
+title: 示例：照片墙长什么样
 date: 2026-10-16T09:00:00+08:00
-location: 示例地点·北京
-description: 这是一组演示照片：正文只有图片，说明写进每张图的 caption。看明白后删掉它，开始写你自己的。
+location: 示例·北京
+description: 演示照片墙：photos 列表里一张照片一项，看明白后把这组整删掉。
 images:
   - cover.svg
+photos:
+  - src: 01.svg
+    caption: 一张照片一张卡，说明写在 caption 里
+  - src: 02.svg
+    caption: 左上角徽章是 location，图片保持原始比例
+  - src: 03.svg
+    caption: 不写 caption 就只有图；点击卡片放大原图
+  - src: 04.svg
+    caption: 所有照片按组的时间汇在 /plog 这一页
 ---
-
-![山与湖](01.svg)
-{caption="第 1 张：一个文件夹就是一组，正文只放图片"}
-
-![城市日落](02.svg)
-{caption="第 2 张：说明写在属性行，图片保持原始比例"}
-
-![林间小路](03.svg)
-{caption="第 3 张：不写 caption 也可以，点击图片可放大"}
-
-![夏夜星空](04.svg)
-{caption="第 4 张：所有照片组按时间汇成 /plog 这一页"}

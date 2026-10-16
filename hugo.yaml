@@ -170,16 +170,18 @@ params:
 
 # ── 内容扩展约定（新增即自动套用当前样式，无需改代码）──────────────
 # · 新增文章：在任意专栏/博客目录下加 .md 文件即可，标签/分类见 front matter。
-# · 图片博客（/plog，不进菜单，单页照片流）：一个文件夹就是一组照片——
-#   在 content/plog/<名字>/ 下放 index.md 与图片（可用
+# · 图片博客（/plog，不进菜单，时光相册式照片墙）：一个文件夹就是一组
+#   照片——在 content/plog/<名字>/ 下放 index.md 与图片（可用
 #   `hugo new content plog/<名字>/index.md` 生成骨架），front matter 写
-#   title / date / location（拍摄地点）/ description / images（可选封面）；
-#   正文只放图片，用文件名直接引用，插图写法（每个图片单独一段，属性行单独一行）：
-#       ![图片描述](01.jpg)
-#       {caption="图片说明"}
-#   带 caption 渲染为「图+图注」，不写就只有图（块级图片均可点击放大）；
-#   一组可含多张；所有组按时间汇在 /plog 一页（集头 + 组内瀑布流），
-#   不生成独立详情页（_index.md 级联 build.render: false，故不要给组打标签）；
+#   title / date / location（拍摄地点，显示为卡片徽章）/ description /
+#   images（可选封面）；照片在 photos 列表里声明（src 必填，caption 可选
+#   作为卡片图注）：
+#       photos:
+#         - src: 01.jpg
+#           caption: 图片说明
+#   每张照片一张卡（圆角 + 徽章 + 图注 + hover 放大 + 点击看原图），
+#   位图自动生成 x900 缩略图；所有组按时间汇在 /plog 一页，不生成
+#   独立详情页（_index.md 级联 build.render: never，故不要给组打标签）；
 #   布局在 layouts/plog/，样式在 _styles_project.scss。
 # · 新增专栏：建 content/<新专栏>/_index.md，并写：
 #       type: book

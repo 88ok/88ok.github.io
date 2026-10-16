@@ -1,6 +1,6 @@
 ---
 title: 图片博客
-description: 用照片记录走过的路：山川、城市、街角与日常。一个文件夹就是一组照片，所有照片组按时间汇成这一页。
+description: 用照片记录走过的路：山川、城市、街角与日常。一张照片一张卡，所有照片按时间汇成这一页。
 search_keywords: [追风笔记, 图片博客, 摄影, plog, 照片]
 type: plog
 icon: fa-solid fa-camera
@@ -12,6 +12,9 @@ body_class: td-plog
 notoc: true
 # 右侧栏也关掉：照片页不需要目录/标签云/反向引用，整页只留照片
 toc_taxonomies: false
+# 照片墙点击放大：主题要求页面级 image_zoom 显式开启（站点默认关），
+# 且模板需置 Page.Store "hasImageZoom"（见 layouts/plog/list.html）
+image_zoom: true
 comments: false
 share: [copy]
 feedback: false
@@ -26,6 +29,7 @@ build:
   render: always
 cascade:
   type: plog
+  image_zoom: true
   theme_color: '#0f766e'
   theme_color_dark: '#5eead4'
   sidebar_enabled: false

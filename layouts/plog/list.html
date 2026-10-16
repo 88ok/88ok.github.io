@@ -4,26 +4,28 @@
     <h1>{{ .Title }}</h1>
     {{- with .Description }}<p class="td-plog-desc">{{ . }}</p>{{ end }}
   </header>
-  {{- $sets := .RegularPages.ByDate.Reverse -}}
-  {{- with $sets }}
-  <div class="td-plog-stream">
-    {{- range . }}
-    {{- /* 一个图片集 = 一个 md（页面资源包）：集头 + 组内照片墙。
-           各组内容直接汇在本页，不生成独立页面（_index.md 级联
-           build.render: false），因此这里输出 .Content 而非链接。 */ -}}
-    <section class="td-plog-set">
-      <header class="td-plog-set__head">
-        <h2>{{ .Title }}{{ with $n := len (findRE "<img" .Content) }}{{ if $n }}<span class="td-plog-set__count">{{ $n }} 张</span>{{ end }}{{ end }}</h2>
-        {{- partial "plog/entry-meta.html" . }}
-        {{- with .Params.description }}<p class="td-plog-set__desc">{{ . }}</p>{{ end }}
-      </header>
-      <div class="td-plog-gallery">
-        {{- .Content }}
-      </div>
-    </section>
+  {{- /* 时光相册式照片墙（参考 plog.zhheo.com）：不按组分块，每张照片
+         一张卡，所有组按时间汇成一页。照片数据来自各组 index.md 的
+         front matter photos 列表（- src: 同目录文件名 / caption: 可选图注）；
+         卡片徽章取 location，缺省用组标题。各组不渲染独立页面
+         （_index.md 级联 build.list=local + render=never）。 */ -}}
+  {{- $shown := 0 -}}
+  <div class="td-plog-wall">
+    {{- range $set := .RegularPages.ByDate.Reverse }}
+      {{- $photos := $set.Param "photos" }}
+      {{- if not $photos }}{{ continue }}{{ end }}
+      {{- $badge := $set.Title }}
+      {{- with $set.Params.location }}{{ $badge = . }}{{ end }}
+      {{- range $photo := $photos }}
+        {{- $shown = add $shown 1 }}
+        {{- /* 主题按 Page.Store 标志决定是否输出放大对话框与 JS
+               （平时由 render-image 钩子置位；照片墙不走该钩子） */ -}}
+        {{- $.Store.Set "hasImageZoom" true }}
+        {{- partial "plog/photo-card.html" (dict "page" $set "photo" $photo "badge" $badge) }}
+      {{- end }}
     {{- end }}
   </div>
-  {{- else }}
+  {{- if eq $shown 0 }}
   <p>还没有照片。在 <code>content/plog/&lt;名字&gt;/</code> 下新建 index.md 和图片，写下第一组吧。</p>
   {{- end }}
 </div>
