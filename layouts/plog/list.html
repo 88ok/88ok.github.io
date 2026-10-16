@@ -4,13 +4,27 @@
     <h1>{{ .Title }}</h1>
     {{- with .Description }}<p class="td-plog-desc">{{ . }}</p>{{ end }}
   </header>
-  {{- $pages := .RegularPages.ByDate.Reverse -}}
-  {{- with $pages }}
-  <div class="td-plog-grid">
-    {{- range . }}{{ partial "plog/card.html" . }}{{ end }}
+  {{- $sets := .RegularPages.ByDate.Reverse -}}
+  {{- with $sets }}
+  <div class="td-plog-stream">
+    {{- range . }}
+    {{- /* 一个图片集 = 一个 md（页面资源包）：集头 + 组内照片墙。
+           各组内容直接汇在本页，不生成独立页面（_index.md 级联
+           build.render: false），因此这里输出 .Content 而非链接。 */ -}}
+    <section class="td-plog-set">
+      <header class="td-plog-set__head">
+        <h2>{{ .Title }}{{ with $n := len (findRE "<img" .Content) }}{{ if $n }}<span class="td-plog-set__count">{{ $n }} 张</span>{{ end }}{{ end }}</h2>
+        {{- partial "plog/entry-meta.html" . }}
+        {{- with .Params.description }}<p class="td-plog-set__desc">{{ . }}</p>{{ end }}
+      </header>
+      <div class="td-plog-gallery">
+        {{- .Content }}
+      </div>
+    </section>
+    {{- end }}
   </div>
   {{- else }}
-  <p>还没有图片博客。在 <code>content/plog/&lt;名字&gt;/</code> 下新建 index.md 和图片，写下第一篇吧。</p>
+  <p>还没有照片。在 <code>content/plog/&lt;名字&gt;/</code> 下新建 index.md 和图片，写下第一组吧。</p>
   {{- end }}
 </div>
 {{ end }}

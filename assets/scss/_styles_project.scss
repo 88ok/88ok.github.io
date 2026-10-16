@@ -19,17 +19,18 @@
 }
 
 // ---------------------------------------------------------------------
-// 图片博客（/plog，不进菜单）——纯照片呈现
-// 列表页与详情页都是「照片墙」：CSS 多列瀑布流，图片保持原始宽高比，
-// 不裁切、不限制阅读宽度。列表卡片外观与整卡可点（stretched link）来自
-// 主题 .td-content-card；详情页图片走主题 render-image 钩子（带
-// {caption="…"} 渲染 figure + figcaption，块级图片均可点击放大）。
-// 颜色全部沿用主题 CSS 变量，明暗色与四套视觉风格自动生效。
+// 图片博客（/plog，不进菜单）——单页照片流
+// 所有图片集（一个 md = 一组）按时间汇在 /plog 一页：集头（标题 + 张数 +
+// 日期·地点 + 一行描述）+ 组内照片墙。照片墙用 CSS 多列瀑布流、列宽自适应
+// （列数随容器宽度收敛，单张图的组不撑满整行），图片保持原始宽高比；
+// 图片走主题 render-image 钩子（带 {caption="…"} 渲染 figure + figcaption，
+// 块级图片均可点击放大）。颜色全部沿用主题 CSS 变量，明暗色与四套视觉
+// 风格自动生效。
 // ---------------------------------------------------------------------
 
-// 页头（列表与详情共用）：紧凑标题 + 一行描述，不做文章式大标题
+// 页头：紧凑标题 + 一行描述，不做文章式大标题
 .td-plog-head {
-  margin-block-end: 1.25rem;
+  margin-block-end: 1.5rem;
 
   h1 {
     margin: 0 0 0.35rem;
@@ -46,7 +47,7 @@
   line-height: 1.7;
 }
 
-// 详情页头部元信息行：日期 · 地点 · 标签
+// 图片集头部元信息行：日期 · 地点
 .td-plog-meta {
   display: flex;
   flex-wrap: wrap;
@@ -72,18 +73,58 @@
   }
 }
 
-// 照片墙：CSS 多列瀑布流（列内自上而下，列数随宽度收敛）
-.td-plog-gallery,
-.td-plog-grid {
-  columns: 3;
-  column-gap: 1rem;
-
-  @media (max-width: 991.98px) { columns: 2; }
-  @media (max-width: 575.98px) { columns: 1; }
+// 照片流：集与集之间留白，用细线分隔
+.td-plog-stream {
+  margin-block-start: 0.5rem;
 }
 
-// 详情页照片墙：图片通宽、原始比例，图注居中弱化
+.td-plog-set {
+  & + & {
+    margin-block-start: 2.75rem;
+    padding-block-start: 2.75rem;
+    border-block-start: 1px solid var(--bs-border-color-translucent);
+  }
+
+  // 集头：左侧竖线（主题色）点出「这是一组」
+  &__head {
+    margin-block-end: 1.1rem;
+    padding-inline-start: 12px;
+    border-inline-start: 3px solid var(--td-accent, var(--bs-link-color));
+
+    h2 {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin: 0 0 0.15rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+  }
+
+  &__count {
+    color: var(--bs-tertiary-color);
+    font-family: var(--td-meta-font-family, inherit);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  &__desc {
+    margin: 0.35rem 0 0;
+    color: var(--bs-secondary-color);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+}
+
+// 照片墙：列宽自适应（列数 = 容器宽度 / 20rem，随宽度自动收敛；
+// 单张图的组只占一列，配合下面的限宽居中不臃肿）
 .td-plog-gallery {
+  columns: 20rem;
+  column-gap: 1rem;
+
   > figure,
   > p,
   > img {
@@ -108,51 +149,17 @@
     text-align: center;
   }
 
+  // 组里只有一张图：限宽居中，不撑满整行
+  > figure:only-child,
+  > img:only-child {
+    max-inline-size: 42rem;
+    margin-inline: auto;
+  }
+
   // 正文里偶发的文字（不推荐）：小号弱化，不抢照片
   > p {
     color: var(--bs-secondary-color);
     font-size: 14px;
     line-height: 1.75;
-  }
-}
-
-// 列表页照片墙：一个条目一张卡
-.td-plog-grid {
-  margin-block: 1.25rem 0;
-
-  > .td-plog-card {
-    break-inside: avoid;
-    margin-block-end: 1rem;
-  }
-}
-
-// 列表卡片：整卡可点（stretched link），底部带拍摄地点
-.td-plog-card {
-  position: relative;
-
-  .td-plog-card__link::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-  }
-
-  // 封面保持原始比例：主题 .td-blog-card__image 默认裁成 16:9
-  .td-blog-card__image {
-    aspect-ratio: auto;
-  }
-
-  // 照片为主，文字从简：压缩卡片正文
-  .td-content-card__body {
-    padding: 0.7rem 0.85rem 0.8rem;
-  }
-
-  &__location {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    color: var(--bs-secondary-color);
-    font-size: 13px;
-
-    i { font-size: 11px; }
   }
 }

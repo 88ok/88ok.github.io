@@ -1,4 +1,8 @@
 {{ define "main" -}}
+{{- /* 单个图片集的独立页面视图。
+       默认情况下所有图片集都汇在 /plog 一页（layouts/plog/list.html），
+       本模板只在某个组在 front matter 里显式覆盖 build.render: true 时
+       才会被用到（例如想把某一组单独分享出去）。 */ -}}
 <div class="td-content td-plog">
   <header class="td-plog-head">
     <h1>{{ .Title }}</h1>
