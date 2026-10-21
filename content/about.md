@@ -4,7 +4,8 @@ description: 专注分布式核心系统与银行业务，探索 AI 在银行领
 type: docs
 icon: fa-solid fa-user
 sidebar_enabled: false
-page_width: wide
+page_width: normal
+body_class: td-page-about
 footer_style: slim
 comments: false
 feedback: false

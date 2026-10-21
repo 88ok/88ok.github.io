@@ -5,6 +5,7 @@ description: Hands-on breakdowns of ECIF, core banking, distributed architecture
 type: book
 url: /en/architecture/
 sidebar_root_menu: false
+comments: false
 cascade:
   type: book
 ---

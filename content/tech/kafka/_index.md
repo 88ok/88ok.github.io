@@ -3,6 +3,7 @@ title: Kafka
 description: 分布式消息引擎，聚焦存储与消费模型，以及可靠性与精确一次语义的工程保障。
 type: docs
 icon: fa-solid fa-envelope
+comments: false
 cascade:
   type: docs
 ---

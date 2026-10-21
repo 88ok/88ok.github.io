@@ -3,6 +3,7 @@ title: ZooKeeper
 description: A distributed coordination service, focused on the ZAB protocol, the data model, and ZK-based leader election, configuration centers and distributed locks.
 type: docs
 icon: fa-solid fa-sitemap
+comments: false
 cascade:
   type: docs
 ---

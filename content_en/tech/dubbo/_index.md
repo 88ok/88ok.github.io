@@ -3,6 +3,7 @@ title: Dubbo
 description: Alibaba's open-source microservice RPC framework, focused on service registration/discovery, cluster fault tolerance and an extensible architecture.
 type: docs
 icon: fa-solid fa-cube
+comments: false
 cascade:
   type: docs
 ---

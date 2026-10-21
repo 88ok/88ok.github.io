@@ -3,6 +3,7 @@ title: MySQL
 description: 关系型数据库，聚焦索引原理、事务与锁机制等高性能与高可用的底层基础。
 type: docs
 icon: fa-solid fa-database
+comments: false
 cascade:
   type: docs
 ---

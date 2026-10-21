@@ -17,7 +17,6 @@ cascade:
   type: blog
   navbar_autohide: false
   footer_style: slim
-  comments: false
   reading_time: true
   share: [copy]
   feedback: false

@@ -5,6 +5,7 @@ description: Data governance, encryption and security, sharding, messaging and s
 type: book
 url: /en/data/
 sidebar_root_menu: false
+comments: false
 cascade:
   type: book
 ---

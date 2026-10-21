@@ -18,3 +18,38 @@
     display: none;
   }
 }
+
+// ---------------------------------------------------------------------
+// 关于页正文居中。
+//
+// 问题：关于页没有左侧栏（sidebar_enabled: false），但右侧仍占着目录栏
+// （--td-shell-toc-w，clamp(286px, 20vw, 420px)）。主题的正文容器是
+// `margin-inline: auto`，它相对「剩余空间」居中，而不是相对整个视口居中，
+// 于是正文整体偏左，右侧空出一大块，视觉上像没对齐。
+//
+// 做法：给正文列补一份与右侧目录栏等宽的左内边距，左右各让出等量空间，
+// 正文块就落在视口正中，同时不与右侧目录面板重叠。
+//
+// 几何（V=视口宽，T=目录栏宽，A=正文宽）：
+//   main 区域本为 [0, V-T]；补 padding-left: T 后 content box 变成 [T, V-T]，
+//   正文在其中 margin-inline:auto 居中 → 落在 [(V-A)/2, (V+A)/2]，
+//   左右空白均为 (V-A)/2，且右边缘止于 V-T，不与目录面板重叠。
+//
+// 细节：
+// - 目录栏只在 xl 断点以上占位（主题在窄屏把 aside 设为 display:none），
+//   窄屏下目录栏不占位，此时不能补边距，否则正文会偏右。
+// - 目录栏可被用户折叠（html[data-td-shell-toc='collapsed']），折叠后实际
+//   宽度为 0，main 铺满视口，边距要跟着归零，否则正文会明显右移。
+// - page_width 已在 front matter 改为 normal（1050px）：正文块有足够宽度的
+//   前提下，1050px 的行宽更适合长文本阅读，也给两侧留白留出空间。
+// ---------------------------------------------------------------------
+@media (min-width: 1200px) {
+  body.td-page-about .td-shell-main {
+    padding-left: var(--td-shell-toc-w);
+  }
+
+  // 目录栏被折叠后不再占位，左侧补偿同时撤销。
+  html[data-td-shell-toc='collapsed'] body.td-page-about .td-shell-main {
+    padding-left: 0;
+  }
+}

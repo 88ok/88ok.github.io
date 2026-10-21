@@ -3,6 +3,7 @@ title: ZooKeeper
 description: 分布式协调服务，聚焦 ZAB 协议、数据模型与基于 ZK 的选主、配置中心与分布式锁实战。
 type: docs
 icon: fa-solid fa-sitemap
+comments: false
 cascade:
   type: docs
 ---

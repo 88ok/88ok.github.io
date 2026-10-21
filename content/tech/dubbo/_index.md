@@ -3,6 +3,7 @@ title: Dubbo
 description: 阿里巴巴开源的微服务 RPC 框架，关注服务注册发现、集群容错与可扩展架构。
 type: docs
 icon: fa-solid fa-cube
+comments: false
 cascade:
   type: docs
 ---

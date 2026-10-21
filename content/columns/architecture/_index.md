@@ -5,6 +5,7 @@ description: 客户信息系统、核心系统、分布式架构与领域驱动�
 type: book
 url: /architecture/
 sidebar_root_menu: false
+comments: false
 cascade:
   type: book
 ---

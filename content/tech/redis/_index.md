@@ -3,6 +3,7 @@ title: Redis
 description: 高性能内存数据结构存储，聚焦底层数据结构实现与缓存设计中的典型问题与应对。
 type: docs
 icon: fa-solid fa-bolt
+comments: false
 cascade:
   type: docs
 ---

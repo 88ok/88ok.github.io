@@ -3,6 +3,7 @@ title: Kafka
 description: A distributed messaging engine, focused on the storage/consumption model and the engineering guarantees of reliability and exactly-once semantics.
 type: docs
 icon: fa-solid fa-envelope
+comments: false
 cascade:
   type: docs
 ---

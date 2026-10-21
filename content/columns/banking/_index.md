@@ -5,6 +5,7 @@ description: 支付清算、计息与限额、账户/卡、反洗钱（AML）/KY
 type: book
 url: /banking/
 sidebar_root_menu: false
+comments: false
 cascade:
   type: book
 ---

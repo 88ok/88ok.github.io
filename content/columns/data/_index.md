@@ -5,6 +5,7 @@ description: 数据治理、加密与安全、分库分表、消息与流处理�
 type: book
 url: /data/
 sidebar_root_menu: false
+comments: false
 cascade:
   type: book
 ---

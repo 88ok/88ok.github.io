@@ -5,6 +5,7 @@ description: Payment clearing, interest and limits, accounts/cards, AML/KYC/CRS 
 type: book
 url: /en/banking/
 sidebar_root_menu: false
+comments: false
 cascade:
   type: book
 ---

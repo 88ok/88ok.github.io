@@ -133,6 +133,40 @@ params:
   copyright:
     authors: 王鹏
     from_year: 2026
+  # ── 评论（giscus / GitHub Discussions）─────────────────────────────
+  # 说明：giscus 不需要新建仓库，它把评论存放在**本仓库**的 Discussions 里，
+  # 由 Oink v1.3.2 原生支持（_partials/giscus.html + assets/js/giscus.js）。
+  # 四个必需键缺一不可：主题的 comments-state.html 会 warn，--panicOnWarning
+  # 下直接让构建失败，所以配置不完整时 enable 保持 false。
+  #
+  # GitHub 侧准备状态：
+  #   - 仓库 Discussions 已开启（has_discussions: true）；
+  #   - 使用默认分类 Announcements，node_id = DIC_kwDOT45upc4DJPhU。
+  #     选它是因为该分类类型为「公告」，网页端仅维护者可发帖，
+  #     读者只能通过 giscus 组件留言，可有效防止垃圾评论。
+  #   - repoId = R_kgDOT45upQ。
+  #
+  # 前置条件（一次性，只需做一次）：
+  #   安装 giscus App：https://github.com/apps/giscus → Install →
+  #   选择 88ok/88ok.github.io → Install。
+  #   未安装时评论区会显示「评论加载失败」，装完刷新即可，无需改本文件。
+  #
+  # 关闭评论：把 enable 改为 false 即可（内容页已按需覆盖开关，
+  # 列表页/关于页/相册页/项目页显式关闭，只有文章页显示评论区）。
+  comments:
+    enable: true
+    type: giscus
+    giscus:
+      repo: 88ok/88ok.github.io
+      repoid: R_kgDOT45upQ
+      category: Announcements
+      categoryid: DIC_kwDOT45upc4DJPhU
+      mapping: pathname
+      strict: 0
+      reactionsenabled: 1
+      emitmetadata: 0
+      inputposition: top
+      theme: auto
   ui:
     # v1.2.0 起主题提供四套视觉风格：paper（默认）/ slate / ink / terminal。
     # 显式声明，避免将来主题改默认值时站点外观意外变化。
@@ -144,6 +178,12 @@ params:
       enable: true
       show_menu: true
     sidebar_menu_foldable: true
+    # 反链（Backlinks）：主题原生能力，读取正文中的站内链接建立反向引用索引，
+    # 在文章页右侧目录栏以「反链」分组展示「谁引用了本文」。
+    # 索引来源是各页面 Markdown 原文里的 [文字](链接) 与 ref/relref 短代码；
+    # 运行时由 JS 生成的链接不参与计算。开启后建议保持链接写法为根相对路径，
+    # 否则跨语言页面的归属判断会失效。
+    backlinks: true
     # 页面操作菜单：增加分享到微博、微信（二维码）、本页二维码、打印
     page_context_menu:
       enable: true
@@ -177,7 +217,7 @@ params:
 
 # ── 内容扩展约定（新增即自动套用当前样式，无需改代码）──────────────
 # · 新增文章：在任意专栏/博客目录下加 .md 文件即可，标签/分类见 front matter。
-# · 图片博客（/plog，不进菜单，Oink v1.3.0 原生 Expo 相册）：一个文件夹
+# · 图片（/plog，不进菜单，Oink v1.3.0 原生 Expo 相册）：一个文件夹
 #   就是一个相册——content/plog/<名字>/ 下放 index.md 与 images/ 照片目录
 #   （可用 `hugo new content plog/<名字>/index.md` 生成骨架）。front matter
 #   写 title / description；照片在 resources 列表里声明（src 必填，写在

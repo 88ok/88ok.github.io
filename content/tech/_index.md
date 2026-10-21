@@ -7,13 +7,13 @@ sidebar_expanded: true
 sidebar_root_for: self
 sidebar_root_link_self: true
 navbar_autohide: false
+comments: false
 cascade:
   theme_color: '#245f94'
   theme_color_dark: '#5da2dd'
   type: docs
   navbar_autohide: false
   footer_style: slim
-  comments: false
   feedback: false
   search_boost: 1.2
 ---

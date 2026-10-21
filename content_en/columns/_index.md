@@ -7,15 +7,14 @@ sidebar_root_for: self
 sidebar_root_link_self: true
 outputs: [HTML, print, markdown]
 navbar_autohide: false
+comments: false
 cascade:
   type: book
   theme_color: '#0e7490'
   theme_color_dark: '#22d3ee'
   navbar_autohide: false
   footer_style: slim
-  comments: false
   feedback: false
-  sidebar_headings: 3
 ---
 
 Entry points to themed topics. Each topic follows one main thread, with articles forming a long-term reference.

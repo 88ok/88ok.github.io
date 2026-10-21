@@ -3,6 +3,7 @@ title: Redis
 description: A high-performance in-memory data structure store, focused on underlying data structure implementations and typical problems and solutions in cache design.
 type: docs
 icon: fa-solid fa-bolt
+comments: false
 cascade:
   type: docs
 ---

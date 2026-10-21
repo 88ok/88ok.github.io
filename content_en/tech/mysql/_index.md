@@ -3,6 +3,7 @@ title: MySQL
 description: A relational database, focused on the internals of indexing, transactions and locking that underpin performance and correctness.
 type: docs
 icon: fa-solid fa-database
+comments: false
 cascade:
   type: docs
 ---
