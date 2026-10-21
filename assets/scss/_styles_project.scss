@@ -6,17 +6,251 @@
 // =====================================================================
 
 // ---------------------------------------------------------------------
-// 移动端导航：去掉中部「仅图标」菜单，统一由右侧抽屉按钮承载。
-// 专栏 / 博客 / 文档 等 shell 页在 < md（手机）时，顶部中部的站点菜单会
-// 变成只有图标的按钮（文字被隐藏），用户看不懂。这里隐藏它，站点导航改
-// 由右侧菜单按钮打开的左抽屉承载（抽屉内已含本专栏文章树 + 本文章 TOC）。
-// 注意：Oink v0.7.0 后 class 改名为 .td-site-header / .td-nav-menu-zone。
+// 手机端顶栏与双抽屉导航（<768px）
+//
+// 原状：主题把站点菜单收成图标、并只留一个汉堡；右栏内容（目录/反链/
+// 标签云）由 docs-shell.js 塞进同一个左抽屉，文章树和目录混在一起。
+//
+// 现在：顶栏改为 [左菜单] [居中 logo] [搜索] [右目录] 四段式，
+// 左按钮开「本栏目文章树」（主题的侧栏抽屉，改为从左侧滑出），
+// 右按钮开「本页目录」（mobile-nav.js 新建的右抽屉，从右侧滑出）。
+//
+// 覆盖原则：只加特异性更高的选择器，不改主题文件，升级不受影响。
 // ---------------------------------------------------------------------
 @media (max-width: 767.98px) {
-  // 只针对 shell 页（body 带 td-shell-chrome）；落地页首页由主题自带规则处理。
-  body.td-shell-chrome .td-site-header .td-nav-menu-zone {
+  // 中部站点菜单隐藏（保留原有意图：手机不放整排图标导航）。
+  .td-site-header .td-nav-menu-zone {
     display: none;
   }
+
+  /* ---------------------------------------------------------- 顶栏布局 */
+  .td-site-header .td-site-nav {
+    position: relative;
+    min-height: 54px;
+  }
+
+  // 品牌绝对居中：左右两侧按钮宽度不等，用 absolute 才能真正居中视口。
+  .td-site-header .td-nav-brand {
+    position: absolute;
+    inset-inline-start: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    gap: 0;
+    z-index: 1;
+  }
+
+  // 手机上只留图标，省出两侧空间。
+  .td-site-header .td-nav-title,
+  .td-site-header .td-nav-wordmark {
+    display: none;
+  }
+
+  .td-site-header .td-nav-logo {
+    width: 26px;
+    height: 26px;
+  }
+
+  // 左菜单按钮：原本在右侧工具区末尾，这里提到左侧。
+  // shell 页用侧栏抽屉开关，首页 landing 用它的下拉面板开关 —— 位置一致。
+  .td-site-header .td-site-nav__menu-toggle,
+  .td-site-header .td-site-drawer-toggle {
+    position: absolute;
+    inset-inline-start: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+  }
+
+  // 右侧工具区：搜索 + 右目录按钮。外观切换在页脚工具坞里已有，
+  // 顶栏不再重复，避免四个图标挤在一起。
+  //
+  // 必须显式指定第 3 列：品牌是 absolute、中部菜单是 display:none，
+  // 两者都不再占据网格，工具区会被自动排进第 1 列 —— 于是靠右对齐变成
+  // 「靠第一列右缘」，按钮组正好压住居中的 logo。
+  .td-site-header .td-nav-util-zone {
+    grid-column: 3;
+    justify-self: end;
+    gap: 2px;
+  }
+
+  .td-site-header .td-appearance,
+  .td-site-header .td-appearance__trigger {
+    display: none;
+  }
+
+  // 统一的触摸目标：≥42px 才符合移动端可达性经验值。
+  .td-site-header .td-nav-util-zone > button,
+  .td-site-header .td-nav-util-zone > a,
+  .td-site-header .td-site-nav__menu-toggle,
+  .td-site-header .td-site-drawer-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    min-height: 42px;
+    border-radius: 10px;
+  }
+
+  /* -------------------------------------------- 左抽屉：改为左侧滑出 */
+  // 主题默认在 <md 从右侧滑出；既然顶栏左按钮在左，方向要跟着走。
+  body.td-shell-chrome .td-shell-sidebar__panel {
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+    width: 86vw;
+    max-width: 360px;
+    border-inline-start: 0;
+    border-inline-end: 1px solid var(--bs-border-color);
+    border-start-end-radius: 16px;
+    border-end-end-radius: 16px;
+    transform: translateX(-101%);
+  }
+
+  [data-td-shell-drawer='open'] body.td-shell-chrome .td-shell-sidebar__panel {
+    transform: translateX(0);
+  }
+}
+
+/* ------------------------------------------------------ 右抽屉（右目录） */
+// 由 mobile-nav.js 创建；默认隐藏，仅手机断点内可用。
+.td-mobile-aside,
+.td-mobile-aside__scrim {
+  display: none;
+}
+
+// 按钮本体由脚本插入右侧工具区，桌面上必须完全不占位——
+// 脚本在所有断点都会创建它，只靠 <768 的样式显露。
+// 选择器要带上 .td-nav-util-zone：主题的 .td-site-header .td-nav-util
+// 是 (0,2,0)，单类 (0,1,0) 压不住。
+.td-site-header .td-nav-util-zone > .td-mobile-aside-toggle {
+  display: none;
+}
+
+@media (max-width: 767.98px) {
+  .td-site-header .td-nav-util-zone > .td-mobile-aside-toggle {
+    display: inline-flex;
+  }
+
+  .td-mobile-aside {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset-block: 0;
+    inset-inline-end: 0;
+    width: 86vw;
+    max-width: 360px;
+    z-index: 1046;
+    background: var(--td-shell-card);
+    border-inline-start: 1px solid var(--bs-border-color);
+    border-start-start-radius: 16px;
+    border-end-start-radius: 16px;
+    box-shadow: var(--td-shell-shadow-lg);
+    transform: translateX(101%);
+    visibility: hidden;
+    transition:
+      transform var(--td-motion-duration-slow) ease,
+      visibility var(--td-motion-duration-slow) ease;
+  }
+
+  html[data-td-mobile-aside='open'] .td-mobile-aside {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  // 与主题左抽屉一致：抽屉打开时锁住背景滚动。
+  html[data-td-mobile-aside='open'] {
+    overflow: hidden;
+  }
+
+  .td-mobile-aside__scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1040;
+    background: var(--td-shell-scrim);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--td-motion-duration-slow) ease;
+  }
+
+  html[data-td-mobile-aside='open'] .td-mobile-aside__scrim {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  // 顶栏右按钮：图标与左侧汉堡错开，避免两个「三道杠」混淆。
+  .td-mobile-aside-toggle .td-shell-icon {
+    --td-shell-icon-size: 18px;
+  }
+}
+
+// 抽屉头与滚动区（不分断点，元素只在手机存在，桌面不影响）。
+.td-mobile-aside__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+  padding: 0.7rem 0.85rem 0.7rem 1rem;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.td-mobile-aside__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--bs-body-color);
+}
+
+.td-mobile-aside__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--td-shell-muted-fg);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--td-shell-accent);
+    color: var(--bs-body-color);
+  }
+}
+
+.td-mobile-aside__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.4rem 0.75rem 1.5rem;
+}
+
+// aside 搬进抽屉后不再处于 .td-shell-toc__panel 内，主题那条
+// flex/overflow 规则失效，这里补回「可滚动的一列」。
+.td-mobile-aside__body > .td-shell-aside {
+  display: block;
+}
+
+// 触摸区更宽松：手机上目录条目太密容易点错。
+.td-mobile-aside__body .td-shell-tree__row,
+.td-mobile-aside__body .td-shell-aside-group__head {
+  min-height: 40px;
+}
+
+// 抽屉头已经写着「本页目录」，目录分组自带的标题行就重复了。
+// 只藏标题行，不动它的内容容器（children 仍按 td-is-open 展开）。
+.td-mobile-aside__body .td-shell-aside-group--toc > .td-shell-aside-group__row {
+  display: none;
 }
 
 // ---------------------------------------------------------------------

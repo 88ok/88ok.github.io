@@ -7,3 +7,13 @@
 {{ else -}}
   <script src="{{ $js.RelPermalink }}"></script>
 {{ end -}}
+
+{{/* 手机端双抽屉：把右栏内容从左侧抽屉里拆出来，独立成右侧「本页目录」面板。
+     仅 <768px 生效，不改主题文件。详见 assets/js/mobile-nav.js 顶部说明。 */ -}}
+{{ $mobileNav := resources.Get "js/mobile-nav.js" -}}
+{{ if hugo.IsProduction -}}
+  {{ $mobileNav = $mobileNav | minify | fingerprint -}}
+  <script src="{{ $mobileNav.RelPermalink }}" integrity="{{ $mobileNav.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ else -}}
+  <script src="{{ $mobileNav.RelPermalink }}"></script>
+{{ end -}}
