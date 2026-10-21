@@ -139,17 +139,20 @@ params:
   # 四个必需键缺一不可：主题的 comments-state.html 会 warn，--panicOnWarning
   # 下直接让构建失败，所以配置不完整时 enable 保持 false。
   #
-  # GitHub 侧准备状态：
+  # GitHub 侧准备工作（均已完成，无需再动）：
   #   - 仓库 Discussions 已开启（has_discussions: true）；
+  #   - giscus App 已安装到本仓库（读者留言由 giscus[bot] 代发）；
   #   - 使用默认分类 Announcements，node_id = DIC_kwDOT45upc4DJPhU。
   #     选它是因为该分类类型为「公告」，网页端仅维护者可发帖，
   #     读者只能通过 giscus 组件留言，可有效防止垃圾评论。
   #   - repoId = R_kgDOT45upQ。
   #
-  # 前置条件（一次性，只需做一次）：
-  #   安装 giscus App：https://github.com/apps/giscus → Install →
-  #   选择 88ok/88ok.github.io → Install。
-  #   未安装时评论区会显示「评论加载失败」，装完刷新即可，无需改本文件。
+  # 行为说明：页面首次收到评论时，giscus 会自动按 pathname 在该分类下
+  # 建一条 Discussion，标题即页面路径。同一路径的评论始终落在同一条讨论里；
+  # 页面改路径（改 slug）会被视为新页面，评论不会自动迁移。
+  #
+  # 排查：评论区显示「评论加载失败」时，依次检查——App 是否仍装在仓库上、
+  # Discussions 是否被关闭、Announcements 分类是否被改名或删除。
   #
   # 关闭评论：把 enable 改为 false 即可（内容页已按需覆盖开关，
   # 列表页/关于页/相册页/项目页显式关闭，只有文章页显示评论区）。
