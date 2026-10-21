@@ -54,6 +54,7 @@ languages:
             - { name: 银行业务专栏, pageRef: /banking, weight: 2 }
             - { name: 数据专栏, pageRef: /data, weight: 3 }
             - { name: 专题列表, pageRef: /columns, weight: 4 }
+        - { name: 图片, pageRef: /plog, weight: 33 }
         - { name: 项目, pageRef: /projects, weight: 35 }
         - { name: 关于, pageRef: /about, weight: 40 }
   en:
