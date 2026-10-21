@@ -1,20 +1,22 @@
 ---
-# 图片博客条目骨架：hugo new content plog/<名字>/index.md 自动生成。
-# 一个文件夹就是一组照片：index.md 与图片放在同一目录 content/plog/<名字>/ 下，
-# 图片在 front matter 的 photos 列表里声明（文件名直接引用）；所有照片
-# 按组的时间汇在 /plog 一页（每张照片一张卡），不生成独立页面。
-#   location   —— 拍摄地点，显示为卡片左上角徽章（缺省用标题）
-#   description—— 一句话说明，用于列表页摘要等场景
-#   images     —— 可选，组封面（供 RSS/SEO 使用），写同目录文件名
-#   photos     —— 照片列表：src 必填；caption 可选（卡片左下角图注）
-#   tags       —— 不要用：各组没有独立页面，标签归档页会指向不存在的地址
+# Expo 相册骨架：hugo new content plog/<名字>/index.md 自动生成。
+# 一个文件夹就是一个相册：index.md 与 images/ 照片目录放在一起
+#（content/plog/<名字>/），照片在 front matter 的 resources 列表里声明。
+#   title       —— 相册名（/plog 卡片标题）
+#   description —— 一句话说明（/plog 卡片摘要、相册页导语）
+#   resources   —— 照片列表：src 必填（相对本目录，如 images/01.jpg）；
+#                  params.caption 图注；params.title 标题（缺省用文件名）；
+#                  params.weight 排序，小的在前（缺省 0，保持声明顺序）；
+#                  params.id 稳定图片锚点（缺省文件名哈希，改名会失效）
+#   卡片封面 = 权重最小的第一张照片，无需单独指定封面。
+#   Expo 没有「拍摄地点」字段：想带地点就写进 description。
 title: '{{ replace .File.ContentBaseName "-" " " | title }}'
 date: '{{ .Date }}'
-location: ''
 description: ''
-images: []
-photos:
-  - src: 01.jpg
-    caption: 图片说明（可省略）
+resources:
+  - src: images/01.jpg
+    title: ''
+    params:
+      caption: 图片说明（可省略）
 draft: true
 ---

@@ -167,22 +167,31 @@ params:
         - name: 打印本页
           icon: fa-solid fa-print
           action: print
+    # Expo 图片相册（/plog）站点级默认：布局 wall（墙壁）/ cards（卡片）/
+    # seamless（无缝），尺寸 160–360 CSS 像素，图片目录模式 images/*。
+    # 相册 front matter 的 expo 块整块覆盖这些值。
+    expo:
+      images: images/*
+      mode: wall
+      size: 240
 
 # ── 内容扩展约定（新增即自动套用当前样式，无需改代码）──────────────
 # · 新增文章：在任意专栏/博客目录下加 .md 文件即可，标签/分类见 front matter。
-# · 图片博客（/plog，不进菜单，时光相册式照片墙）：一个文件夹就是一组
-#   照片——在 content/plog/<名字>/ 下放 index.md 与图片（可用
-#   `hugo new content plog/<名字>/index.md` 生成骨架），front matter 写
-#   title / date / location（拍摄地点，显示为卡片徽章）/ description /
-#   images（可选封面）；照片在 photos 列表里声明（src 必填，caption 可选
-#   作为卡片图注）：
-#       photos:
-#         - src: 01.jpg
-#           caption: 图片说明
-#   每张照片一张卡（圆角 + 徽章 + 图注 + hover 放大 + 点击看原图），
-#   位图自动生成 x900 缩略图；所有组按时间汇在 /plog 一页，不生成
-#   独立详情页（_index.md 级联 build.render: never，故不要给组打标签）；
-#   布局在 layouts/plog/，样式在 _styles_project.scss。
+# · 图片博客（/plog，不进菜单，Oink v1.3.0 原生 Expo 相册）：一个文件夹
+#   就是一个相册——content/plog/<名字>/ 下放 index.md 与 images/ 照片目录
+#   （可用 `hugo new content plog/<名字>/index.md` 生成骨架）。front matter
+#   写 title / description；照片在 resources 列表里声明（src 必填，写在
+#   images/ 下的文件名），每张可带 params.caption 图注、params.title 标题、
+#   params.weight 排序（小的在前）：
+#       resources:
+#         - src: images/01.jpg
+#           params:
+#             caption: 图片说明
+#   /plog 列出所有相册（卡片封面 = 权重最小的第一张照片，自动选取）；
+#   相册页是照片墙，工具栏可切换 墙壁/卡片/无缝 三种布局与尺寸，点击看
+#   原图（查看器支持缩放/拖动/键盘导航）。Expo 无「拍摄地点」字段，
+#   想带地点写进 description。站点级默认（布局/尺寸/图片目录模式）在
+#   params.ui.expo，相册 front matter 的 expo 块可整块覆盖。
 # · 新增专栏：建 content/<新专栏>/_index.md，并写：
 #       type: book
 #       cascade:
@@ -202,4 +211,6 @@ module:
     - path: github.com/pgsty/oink
   hugoVersion:
     extended: true
-    min: 0.160.1
+    # Oink v1.3.0 起最低要求 0.166.0；注意 Hugo 0.168 构建会带一条上游
+    # LibSass 弃用警告，--panicOnWarning 严格校验请用 0.166.0。
+    min: 0.166.0
