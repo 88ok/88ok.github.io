@@ -1,56 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" fill="none" role="img" aria-label="追风笔记视觉：知识与数据的流动">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" fill="none" role="img" aria-label="追风笔记：一条风线穿过架构、银行业务、数据三个节点">
   <defs>
-    <radialGradient id="glowD" cx="50%" cy="40%" r="62%">
-      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.18"/>
-      <stop offset="55%" stop-color="#60a5fa" stop-opacity="0.05"/>
-      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    <radialGradient id="hzGlowD" gradientUnits="userSpaceOnUse" cx="228" cy="228" r="300">
+      <stop offset="0" stop-color="#a78bfa" stop-opacity="0.12"/>
+      <stop offset="0.6" stop-color="#a78bfa" stop-opacity="0.035"/>
+      <stop offset="1" stop-color="#a78bfa" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="blueD" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#60a5fa"/>
-      <stop offset="100%" stop-color="#3b82f6"/>
+    <linearGradient id="hzMainD" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#4c1d95"/>
+      <stop offset="0.34" stop-color="#a78bfa"/>
+      <stop offset="0.72" stop-color="#c4b5fd"/>
+      <stop offset="1" stop-color="#ddd6fe"/>
     </linearGradient>
-    <linearGradient id="copperD" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#e8b07a"/>
-      <stop offset="100%" stop-color="#c98a52"/>
+    <linearGradient id="hzFadeD" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.68" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#000000"/>
     </linearGradient>
+    <mask id="hzFadeMaskD">
+      <rect width="480" height="480" fill="url(#hzFadeD)"/>
+    </mask>
   </defs>
 
-  <rect width="480" height="480" fill="url(#glowD)"/>
 
-  <!-- 风：流动曲线 -->
-  <g stroke="url(#blueD)" stroke-width="2.4" stroke-linecap="round" opacity="0.55" fill="none">
-    <path d="M40 150 C 140 90, 250 200, 360 120 S 470 180, 440 250"/>
-    <path d="M30 300 C 150 250, 240 360, 380 280 S 460 330, 430 380"/>
-  </g>
-  <g stroke="url(#copperD)" stroke-width="2" stroke-linecap="round" opacity="0.5" fill="none">
-    <path d="M60 220 C 160 180, 300 260, 420 210"/>
-  </g>
-
-  <!-- 连接线：汇聚到中心 -->
-  <g stroke="#5b7fb8" stroke-width="1.6" opacity="0.75">
-    <line x1="240" y1="225" x2="120" y2="140"/>
-    <line x1="240" y1="225" x2="372" y2="150"/>
-    <line x1="240" y1="225" x2="150" y2="345"/>
-    <line x1="240" y1="225" x2="352" y2="350"/>
+  <g mask="url(#hzFadeMaskD)">
+    <path d="M28 302C110 296 146 240 226 228C306 216 380 196 452 168"
+          stroke="url(#hzMainD)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M76 214C160 204 236 186 312 170"
+          stroke="#a78bfa" stroke-width="1.6" stroke-linecap="round" opacity="0.52"/>
+    <path d="M116 366C196 360 264 336 330 318"
+          stroke="#a78bfa" stroke-width="1.6" stroke-linecap="round" opacity="0.4"/>
   </g>
 
-  <!-- 外围节点 -->
-  <g>
-    <circle cx="120" cy="140" r="14" fill="#16161b" stroke="url(#blueD)" stroke-width="3"/>
-    <circle cx="372" cy="150" r="11" fill="#16161b" stroke="url(#copperD)" stroke-width="3"/>
-    <circle cx="150" cy="345" r="12" fill="#16161b" stroke="url(#blueD)" stroke-width="3"/>
-    <circle cx="352" cy="350" r="10" fill="#16161b" stroke="url(#copperD)" stroke-width="3"/>
-  </g>
+  <circle cx="138" cy="261" r="19" fill="#16161b" stroke="#a78bfa" stroke-width="2.4"/>
+  <circle cx="138" cy="261" r="6" fill="#8b5cf6"/>
 
-  <!-- 中心枢纽 -->
-  <circle cx="240" cy="225" r="52" fill="none" stroke="#60a5fa" stroke-width="1.5" opacity="0.25"/>
-  <circle cx="240" cy="225" r="34" fill="url(#blueD)"/>
-  <circle cx="240" cy="225" r="34" fill="none" stroke="#0b1220" stroke-width="2" opacity="0.5"/>
+  <circle cx="273" cy="220" r="19" fill="#16161b" stroke="#a78bfa" stroke-width="2.4"/>
+  <circle cx="273" cy="220" r="6" fill="#8b5cf6"/>
 
-  <!-- 火花点缀 -->
-  <g fill="#fbbf24" opacity="0.9">
-    <circle cx="430" cy="120" r="4"/>
-    <circle cx="90" cy="300" r="3.5"/>
-    <circle cx="300" cy="90" r="3"/>
+  <circle cx="391" cy="190" r="29" fill="none" stroke="#a78bfa" stroke-width="1.5" opacity="0.28"/>
+  <circle cx="391" cy="190" r="22" fill="none" stroke="#a78bfa" stroke-width="2.4" opacity="0.85"/>
+  <circle cx="391" cy="190" r="9" fill="#c4b5fd"/>
+
+  <g stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round" opacity="0.55">
+    <path d="M42 322v15"/>
+    <path d="M54 322v8"/>
+    <path d="M66 322v15"/>
   </g>
+  <circle cx="200" cy="234" r="3.2" fill="#c4b5fd" opacity="0.55"/>
 </svg>
