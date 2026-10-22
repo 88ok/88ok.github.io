@@ -8,6 +8,16 @@
   <script src="{{ $js.RelPermalink }}"></script>
 {{ end -}}
 
+{{/* 右栏「分类」「标签」默认展开：主题在 <1200px 会把 aside 搬进抽屉并折叠这两组，
+     这里用主题的 keep-open 属性 opt-out。详见 assets/js/aside-default-open.js。 */ -}}
+{{ $asideOpen := resources.Get "js/aside-default-open.js" -}}
+{{ if hugo.IsProduction -}}
+  {{ $asideOpen = $asideOpen | minify | fingerprint -}}
+  <script src="{{ $asideOpen.RelPermalink }}" integrity="{{ $asideOpen.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ else -}}
+  <script src="{{ $asideOpen.RelPermalink }}"></script>
+{{ end -}}
+
 {{/* 手机端双抽屉：把右栏内容从左侧抽屉里拆出来，独立成右侧「本页目录」面板。
      仅 <768px 生效，不改主题文件。详见 assets/js/mobile-nav.js 顶部说明。 */ -}}
 {{ $mobileNav := resources.Get "js/mobile-nav.js" -}}
